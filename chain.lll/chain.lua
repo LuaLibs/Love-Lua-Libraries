@@ -23,8 +23,8 @@
 local love = {}   -- This was only meant to fool the outliner in my Lua IDE.
 -- *fi
 
-mkl.version("","")
-mkl.lic("","")
+mkl.version("Love Lua Libraries (LLL) - chain.lua","16.03.27")
+mkl.lic    ("Love Lua Libraries (LLL) - chain.lua","ZLib License")
 
 local chain={ current=nil, currentname=nil, map={} }
 
@@ -45,6 +45,13 @@ function love.keypressed(key,scan,repeated)
 if not chain.current then return end
 if not chain.current.keypressed then return end
 chain.current.keypressed(key,scan,repeated)
+end
+
+
+function love.mousepressed( x, y, button, istouch )
+if not chain.current then return end
+if not chain.current.mousepressed then return end
+chain.current.mousepressed(x, y, button, istouch)
 end
 
 
