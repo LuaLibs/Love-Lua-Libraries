@@ -41,6 +41,11 @@ if not chain.current.update then return end
 return chain.current.update()
 end 
 
+function love.keypressed(key,scan,repeated)
+if not chain.current then return end
+if not chain.current.keypressed then return end
+chain.current.keypressed(key,scan,repeated)
+end
 
 
 function chain.reg(name,chaindata)
