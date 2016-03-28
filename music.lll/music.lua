@@ -30,7 +30,7 @@ mozart.config = mozart.config or {music=true}
 
 function mozart.play(file,mode)
 mozart.config = mozart.config or {music=true}
-if mozart.source and (not mozart.config.music) then mozart.file=nil; StopSound(mozard.source) return end -- If music is set not to play, it won't play!
+if mozart.source and (not mozart.config.music) then mozart.file=nil; StopSound(mozart.source) return end -- If music is set not to play, it won't play!
 if mozart.source and mozart.file==file then return end -- If the same music is already playing, no need to play it again, right?
 mozart.source = LoadSound(file,true,mode or 'stream')
 PlaySound(mozart.source)
