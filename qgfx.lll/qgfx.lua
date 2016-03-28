@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 16.03.26
+  version: 16.03.28
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,8 +23,10 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("","")
-mkl.lic("","")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.03.28")
+mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
+
+
 
 function LoadImage(file)
 local ret = { ox = 0, oy = 0, t="image", file=file,
@@ -44,6 +46,12 @@ end Rect=DrawRect
 
 Color = love.graphics.setColor
 SetColor = Color
+
+function white() Color(255,255,255) end
+function black() Color(  0,  0,  0) end
+function red()   Color(255,  0,  0) end
+function blue()  Color(  0,  0,255) end
+function ember() Color(255,180,  0) end
 
 shit.LoadImage = LoadImage -- = love.graphics.newImage,love.graphics.newImage
 CLS = love.graphics.clear
