@@ -1,6 +1,6 @@
 --[[
-  mkl_version.lua
-  mkl_version
+  music.lua
+  music.lll/music.lua
   version: 16.03.28
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
@@ -17,31 +17,36 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+-- *import mkl_version
 
-local ret = {}
+mkl.version("Love Lua Libraries (LLL) - music.lua","16.03.28")
+mkl.lic    ("Love Lua Libraries (LLL) - music.lua","ZLib License")
 
-     ret.data = {}
-     
-     ret.version = function (file,version)
-                    if not file then return end
-                    ret.data[file]=ret.data[file] or {}
-                    ret.data[file].version = version
-               end
-               
-     ret.lic    = function (file,version)
-                    if not file then return end
-                    ret.data[file]=ret.data[file] or {}
-                    ret.data[file].license = version
-               end
-               
-     
+local mozart = {}
+
+mozart.config = mozart.config or {music=true}
 
 
 
-local function me(mkl)
-mkl.version("Love Lua Libraries (LLL) - mkl_version.lua","16.03.28")
-mkl.lic    ("Love Lua Libraries (LLL) - mkl_version.lua","ZLib License")
-end; me(ret)
+function mozart.play(file,mode)
+mozart.config = mozart.config or {music=true}
+if mozart.source and (not mozart.config.music) then mozart.file=nil; StopSound(mozard.source) return end -- If music is set not to play, it won't play!
+if mozart.source and mozart.file==file then return end -- If the same music is already playing, no need to play it again, right?
+mozart.source = LoadSound(file,true,mode or 'stream')
+PlaySound(mozart.source)
+end
 
-mkl = ret
-return ret
+function mozart.stop()
+if not mozart.source then return end
+StopSound(mozart.source)
+end
+
+
+
+
+StartMusic = mozart.play
+Music = mozart.play
+
+
+
+return mozart

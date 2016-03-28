@@ -1,7 +1,7 @@
 --[[
   phantasar.lua
   Phantasar Load Screen
-  version: 16.03.26
+  version: 16.03.28
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,12 +23,13 @@
 
 -- *import chain
 -- *import qgfx
+-- *import audio
 
 -- *undef dev_screen
 -- *define dev_shownum
 
-mkl.version("","")
-mkl.lic("","")
+mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.03.28")
+mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
 
 
 local r ={}
@@ -79,7 +80,10 @@ local croll = r.roll[r.process]
 ;(({
       image = function()
               r.retdata[croll[2]] = LoadImage(croll[3])
-              end             
+              end,
+      audio = function()
+              r.retdata[croll[2]] = LoadSound(croll[3],croll[4],croll[5])       
+              end          
       
    })[croll[1]] or function() error("Unknown asset type: "..croll[1]) end)()
 end

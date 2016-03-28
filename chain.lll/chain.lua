@@ -1,7 +1,7 @@
 --[[
   chain.lua
   
-  version: 16.03.27
+  version: 16.03.28
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,7 +23,7 @@
 local love = {}   -- This was only meant to fool the outliner in my Lua IDE.
 -- *fi
 
-mkl.version("Love Lua Libraries (LLL) - chain.lua","16.03.27")
+mkl.version("Love Lua Libraries (LLL) - chain.lua","16.03.28")
 mkl.lic    ("Love Lua Libraries (LLL) - chain.lua","ZLib License")
 
 local chain={ current=nil, currentname=nil, map={} }
@@ -44,7 +44,7 @@ end
 
 function love.mousemoved(x,y,dx,dy)
 if not chain.current then return end
-if not chain.current.moved then return end
+if not chain.current.mousemoved then return end
 return chain.current.mousemoved(x,y,dx,dy)
 end 
 
@@ -67,8 +67,10 @@ chain.map[name] = chaindata
 end
 
 function chain.go(chaindata)
+if chain.current and chain.current.leave then chain.current.leave() end
 ({ ["string"] = function() chain.currentname=chaindata chain.current=chain.map[chaindata] end,
    ["table"]  = function() chain.currentname="<???>" chain.current=chaindata end})[type(chaindata)]()
+if chain.current and chain.current.arrive then chain.current.arrive() end
 end
 
 

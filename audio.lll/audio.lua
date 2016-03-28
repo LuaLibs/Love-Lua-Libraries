@@ -1,6 +1,6 @@
 --[[
-  mkl_version.lua
-  mkl_version
+  audio.lua
+  audio.lua
   version: 16.03.28
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
@@ -17,31 +17,31 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+-- *import mkl_version
 
-local ret = {}
+mkl.version("Love Lua Libraries (LLL) - audio.lua","16.03.28")
+mkl.lic    ("Love Lua Libraries (LLL) - audio.lua","ZLib License")
 
-     ret.data = {}
-     
-     ret.version = function (file,version)
-                    if not file then return end
-                    ret.data[file]=ret.data[file] or {}
-                    ret.data[file].version = version
-               end
-               
-     ret.lic    = function (file,version)
-                    if not file then return end
-                    ret.data[file]=ret.data[file] or {}
-                    ret.data[file].license = version
-               end
-               
-     
+local shit = {}
+
+assets = assets or {}
 
 
+function LoadSound(file,loop,mode)
+local ret = {
+               t = 'audio',
+               source = love.audio.newSource(file,mode or 'stream')
+            }
+       ret.source:setLooping(loop==true)     
+return ret            
+end shit.LoadSound = LoadSound
 
-local function me(mkl)
-mkl.version("Love Lua Libraries (LLL) - mkl_version.lua","16.03.28")
-mkl.lic    ("Love Lua Libraries (LLL) - mkl_version.lua","ZLib License")
-end; me(ret)
+function PlaySound(source)
+love.audio.play(source.source)
+end shit.PlaySound=PlaySound
 
-mkl = ret
-return ret
+function StopSound(source)
+love.audio.stop(source.source)
+end
+
+return shit

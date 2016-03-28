@@ -50,6 +50,7 @@ SetColor = Color
 function white() Color(255,255,255) end
 function black() Color(  0,  0,  0) end
 function red()   Color(255,  0,  0) end
+function green() Color(  0,255,  0) end
 function blue()  Color(  0,  0,255) end
 function ember() Color(255,180,  0) end
 
