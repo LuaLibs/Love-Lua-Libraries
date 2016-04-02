@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 16.03.28
+  version: 16.04.02
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,7 +23,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.03.28")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.02")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 
@@ -34,6 +34,10 @@ local ret = { ox = 0, oy = 0, t="image", file=file,
             }
 return ret
 end             
+
+function LangFont(langarray)
+-- // content comes later
+end
 
 DrawLine = love.graphics.line
 Line     = love.graphics.line
@@ -61,6 +65,7 @@ shit.CLS,shit.cls,shit.Cls,cls,Cls = CLS,CLS,CLS,CLS,CLS
 function DrawImage(img,x,y)
 local i = (({ ['string'] = function() return assets[img] end,
               ['table']  = function() return img end })[type(img)])()
+-- This setup does not work the way it should, but that will be sorted out later.               
 love.graphics.push()
 love.graphics.origin(i.ox,i.oy)
 love.graphics.draw(i.image,x,y)

@@ -1,7 +1,7 @@
 --[[
   chain.lua
   
-  version: 16.03.28
+  version: 16.04.02
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,16 +23,17 @@
 local love = {}   -- This was only meant to fool the outliner in my Lua IDE.
 -- *fi
 
-mkl.version("Love Lua Libraries (LLL) - chain.lua","16.03.28")
+mkl.version("Love Lua Libraries (LLL) - chain.lua","16.04.02")
 mkl.lic    ("Love Lua Libraries (LLL) - chain.lua","ZLib License")
 
-local chain={ current=nil, currentname=nil, map={} }
-
+local chain={ current=nil, currentname=nil, map={}, x = {}, nothing = function() end}
 
 function love.draw()
 assert ( chain.current,"I cannot draw without a valid chain! ")
 assert ( chain.current.draw, "Hey chain "..valstr(chain.currentname).." has no draw data! ")
+;(chain.x.priordraw or chain.nothing)()
 chain.current.draw()
+;(chain.x.afterdraw or chain.nothing)()
 end
 
 function love.update()
@@ -68,8 +69,8 @@ end
 
 function chain.go(chaindata)
 if chain.current and chain.current.leave then chain.current.leave() end
-({ ["string"] = function() chain.currentname=chaindata chain.current=chain.map[chaindata] end,
-   ["table"]  = function() chain.currentname="<???>" chain.current=chaindata end})[type(chaindata)]()
+(({ ["string"] = function() chain.currentname=chaindata chain.current=chain.map[chaindata] end,
+    ["table"]  = function() chain.currentname="<???>" chain.current=chaindata end})[type(chaindata)] or function() error('I cannot handle type: '..type(chaindata).." for chaining!") end)()
 if chain.current and chain.current.arrive then chain.current.arrive() end
 end
 
