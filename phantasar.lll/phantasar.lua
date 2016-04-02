@@ -1,7 +1,7 @@
 --[[
   phantasar.lua
   Phantasar Load Screen
-  version: 16.03.28
+  version: 16.04.02
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,7 +28,7 @@
 -- *undef dev_screen
 -- *define dev_shownum
 
-mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.03.28")
+mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.04.02")
 mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
 
 
@@ -99,6 +99,11 @@ r.roll = {}
 r.barcol = r.barcol or {255,180,0}
 for k,v in pairs(assetlist) do for k2,v2 in pairs(v) do r.total=r.total+1 r.roll[#r.roll+1] = { k,k2,v2 } end end
 return r.retdata
+end
+
+function r.adddir(assetlist,dtype,dir)
+local list = love.filesystem.getDirectoryItems( dir )
+
 end
 
 return r
