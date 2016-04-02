@@ -17,6 +17,10 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
+mkl.version("Love Lua Libraries (LLL) - append.lua","16.04.02")
+mkl.lic    ("Love Lua Libraries (LLL) - append.lua","ZLib License")
+
 local function wanttable(tbl,v)
 assert (type(tbl),"I expected atable to "..({[1]=" append to", [2]="get items from to append"})[v or 1].." but I received "..type(tbl))
 end

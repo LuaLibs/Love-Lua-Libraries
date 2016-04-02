@@ -30,10 +30,11 @@ mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 function LoadImage(file)
 local ret = { ox = 0, oy = 0, t="image", file=file,
-              image = love.graphics.newImage(upper(file))
             }
+if type(file)=='string' then ret.image = love.graphics.newImage(upper(file)) else ret.image=file end            
 return ret
-end             
+end
+             
 
 function LangFont(langarray)
 -- // content comes later
@@ -71,6 +72,27 @@ love.graphics.origin(i.ox,i.oy)
 love.graphics.draw(i.image,x,y)
 love.graphics.pop()                   
 end 
+
+function ImageSizes(img)
+local i = (({ ['string'] = function() return assets[img] end,
+              ['table']  = function() return img end })[type(img)])()
+local w,h
+w = i.image:getWidth()
+h = i.image:getHeight()
+return w,h
+end
+
+function ImageWidth(img)
+local w,h = ImagesSizes(img)
+return w
+end
+
+function ImageHeight(img)
+local w,h = ImagesSizes(img)
+return h
+end
+
+
 
 function HotCenter(img)
 local i = (({ ['string'] = function() return assets[img] end,

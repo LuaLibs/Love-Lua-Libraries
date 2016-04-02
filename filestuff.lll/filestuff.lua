@@ -17,6 +17,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
 function stripdir(a)
 	local ret = ""
 	local c
@@ -26,4 +27,14 @@ function stripdir(a)
 	    ret = c .. ret	    
 	end
 	return ret    
+end
+
+
+function extractdir(a)
+	local c
+	for i=#a,1,-1 do
+	    c = mid(a,i,1)
+	    if c=="/" or c=="\\" then return left(a,i-1) end
+	end
+return ""	
 end

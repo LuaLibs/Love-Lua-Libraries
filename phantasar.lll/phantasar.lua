@@ -83,9 +83,10 @@ local croll = r.roll[r.process]
               end,
       audio = function()
               r.retdata[croll[2]] = LoadSound(croll[3],croll[4],croll[5])       
-              end          
+              end                             
       
    })[croll[1]] or function() error("Unknown asset type: "..croll[1]) end)()
+   print ( "Loaded "..croll[1]..": "..croll[3].." to "..croll[2])
 end
 
 
@@ -101,9 +102,17 @@ for k,v in pairs(assetlist) do for k2,v2 in pairs(v) do r.total=r.total+1 r.roll
 return r.retdata
 end
 
-function r.adddir(assetlist,dtype,dir)
+function r.adddir(assetlist,dtype,dir,prefix)
+print("Must add dir "..dir.." to "..dtype)
 local list = love.filesystem.getDirectoryItems( dir )
-
+local tag,st
+for file in each(list) do
+    print("adding to list:"..file)
+    st = mysplit(file,".")
+    tag = lower(st[1])
+    tag = replace(tag," ","_")
+    assetlist[dtype][(prefix or "")..tag] = dir.."/"..file
+    end
 end
 
 return r
