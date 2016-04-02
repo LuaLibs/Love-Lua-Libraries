@@ -77,8 +77,9 @@ function ImageSizes(img)
 local i = (({ ['string'] = function() return assets[img] end,
               ['table']  = function() return img end })[type(img)])()
 local w,h
-w = i.image:getWidth()
-h = i.image:getHeight()
+assert(i,"I have no image for "..valstr(img))
+w = i:getWidth()
+h = i:getHeight()
 return w,h
 end
 
