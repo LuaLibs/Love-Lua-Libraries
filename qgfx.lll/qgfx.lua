@@ -19,6 +19,7 @@
 ]]
 -- *import mkl_version
 
+
 local shit = {}
 
 assets = assets or {}
@@ -66,6 +67,7 @@ shit.CLS,shit.cls,shit.Cls,cls,Cls = CLS,CLS,CLS,CLS,CLS
 function DrawImage(img,x,y)
 local i = (({ ['string'] = function() return assets[img] end,
               ['table']  = function() return img end })[type(img)])()
+assert(i,"DrawImage("..valstr(img)..","..x..","..y.."): I have no image for "..valstr(img))
 -- This setup does not work the way it should, but that will be sorted out later.               
 love.graphics.push()
 love.graphics.origin(i.ox,i.oy)
@@ -78,18 +80,18 @@ local i = (({ ['string'] = function() return assets[img] end,
               ['table']  = function() return img end })[type(img)])()
 local w,h
 assert(i,"I have no image for "..valstr(img))
-w = i:getWidth()
-h = i:getHeight()
+w = i.image:getWidth()
+h = i.image:getHeight()
 return w,h
 end
 
 function ImageWidth(img)
-local w,h = ImagesSizes(img)
+local w,h = ImageSizes(img)
 return w
 end
 
 function ImageHeight(img)
-local w,h = ImagesSizes(img)
+local w,h = ImageSizes(img)
 return h
 end
 
