@@ -25,20 +25,21 @@ mkl.lic    ("Love Lua Libraries (LLL) - multidim.lua","ZLib License")
 function declaremultidim(dimensions)
 assert(type(dimensions)=='table',"I can only a table for the dimension defintion. Not a "..type(dimensions))
 assert(#dimensions,"Illegal number of dimensions")
-local slots = 0
+local slots = 1
 for k,i in pairs(dimensions) do
-    slots = slots + (empower(i,k))
-    assert(slots>1,"Illegal slots number. Probably caused by too many dimension possibities.") 
+    slots = slots * i
+    assert(slots>1,"Illegal slots number. Probably caused by too many dimension possibities. ("..slots..")") 
     assert(i>1,"Illegal dimension maximum") 
     end
+local ret    
 ret = {
          array = {},
          dims = dimensions,
          
          indexfromslot= function(self,t)
-         local ret=0
+         local ret=1
          for k,i in pairs(t) do          
-                ret = ret + empower(i,k)
+                ret = ret + (dims[i]*k)
                 assert(i>=1 and i<=self.dims,"Multiarray index out of range") 
              end
              return ret             
@@ -72,7 +73,8 @@ ret = {
                      return ak,self.get(self,{ak})
                    end  
                  end
-      }    
+      }  
+return ret        
 end
 
 
