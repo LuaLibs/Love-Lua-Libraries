@@ -1,6 +1,6 @@
 --[[
-  math.lua
-  
+  quickmath.lua
+  Quick math features for lazy people like me
   version: 16.04.04
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
@@ -25,9 +25,16 @@ abs = math.abs
 floor = math.floor
 ceil = math.ceil
 
+
+function empower(value,exponent)
+local ret = 0
+for i=2,exponent do ret = ret * value end
+return ret
+end 
+
 -- Yeah, I know.... I'm LAZY!
 
 
 -- *import mkl_version
-mkl.version("Love Lua Libraries (LLL) - math.lua","16.04.04")
-mkl.lic    ("Love Lua Libraries (LLL) - math.lua","ZLib License")
+mkl.version("Love Lua Libraries (LLL) - quickmath.lua","16.04.04")
+mkl.lic    ("Love Lua Libraries (LLL) - quickmath.lua","ZLib License")
