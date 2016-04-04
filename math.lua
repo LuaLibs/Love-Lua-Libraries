@@ -1,7 +1,7 @@
 --[[
   math.lua
   
-  version: 16.03.28
+  version: 16.04.04
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,10 +21,13 @@ sin = math.sin
 cos = math.cos
 sqr = math.sqrt
 rand = love.math.random
+abs = math.abs
+floor = math.floor
+ceil = math.ceil
 
 -- Yeah, I know.... I'm LAZY!
 
 
 -- *import mkl_version
-mkl.version("Love Lua Libraries (LLL) - math.lua","16.03.28")
+mkl.version("Love Lua Libraries (LLL) - math.lua","16.04.04")
 mkl.lic    ("Love Lua Libraries (LLL) - math.lua","ZLib License")

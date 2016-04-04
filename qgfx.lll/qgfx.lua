@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 16.04.02
+  version: 16.04.04
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -24,7 +24,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.02")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.04")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 
