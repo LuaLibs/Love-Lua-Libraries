@@ -18,6 +18,8 @@
   3. This notice may not be removed or altered from any source distribution.
 ]]
 
+-- *import mkl_version
+
 function prefixed(a,b)
 return left(a,len(b)) == b
 end
