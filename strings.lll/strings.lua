@@ -1,7 +1,7 @@
 --[[
   strings.lua
   Strings
-  version: 16.04.06
+  version: 16.04.07
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -29,5 +29,5 @@ return right(a,len(b)) == b
 end
 
 
-mkl.version("Love Lua Libraries (LLL) - strings.lua","16.04.06")
+mkl.version("Love Lua Libraries (LLL) - strings.lua","16.04.07")
 mkl.lic    ("Love Lua Libraries (LLL) - strings.lua","ZLib License")

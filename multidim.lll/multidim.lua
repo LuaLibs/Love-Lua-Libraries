@@ -1,7 +1,7 @@
 --[[
   multidim.lua
   Multidimensional arrays for Lua
-  version: 16.04.04
+  version: 16.04.07
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,7 +19,7 @@
 ]]
 -- *import quickmath
 
-mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.04.04")
+mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.04.07")
 mkl.lic    ("Love Lua Libraries (LLL) - multidim.lua","ZLib License")
 
 function declaremultidim(dimensions)
@@ -39,8 +39,8 @@ ret = {
          indexfromslot= function(self,t)
          local ret=1
          for k,i in pairs(t) do          
-                ret = ret + (dims[i]*k)
-                assert(i>=1 and i<=self.dims,"Multiarray index out of range") 
+                ret = ret + (self.dims[i]*k)
+                assert(i>=1 and i<=self.dims[i],"Multiarray index out of range") 
              end
              return ret             
          end,
@@ -51,8 +51,8 @@ ret = {
          end,
          
          get = function (self,index)
-            local i = indexfromslot(self,index)
-            return array[i]
+            local i = self.indexfromslot(self,index)
+            return self.array[i]
             end,
             
          each = function(self) return each(self.array) end,
@@ -64,13 +64,13 @@ ret = {
                    return function()
                      local i=1
                      ak[1]=ak[1]+1
-                     while ak[i]>dims[i] do
+                     while ak[i]>self.dims[i] do
                          ak[i]=1
                          i=i+1
-                         if i>#dims then return nil end
+                         if i>#self.dims then return nil end
                          ak[i]=ak[i]+1
                      end
-                     return ak,self.get(self,{ak})
+                     return ak,self.get(self,ak)
                    end  
                  end
       }  
