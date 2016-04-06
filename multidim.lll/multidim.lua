@@ -38,9 +38,11 @@ ret = {
          
          indexfromslot= function(self,t)
          local ret=1
-         for k,i in pairs(t) do          
-                ret = ret + (self.dims[i]*k)
-                assert(i>=1 and i<=self.dims[i],"Multiarray index out of range") 
+         assert(#t==#self.dims,"Incorrect number of dimensions (I have "..#self.dims..", I was asked for "..#t)
+         for k,i in ipairs(t) do          
+                -- print("k = "..strval(k).."; i = "..strval(i).."; ret = "..valstr(ret).."; dimvalue = "..valstr(self.dims[k]))
+                ret = ret + (self.dims[k]*i)
+                assert(i>=1 and i<=self.dims[k],"Multiarray index out of range") 
              end
              return ret             
          end,
@@ -56,7 +58,7 @@ ret = {
             end,
             
          each = function(self) return each(self.array) end,
-         truepairs = function(self) return ipairs(self.array) end,
+         trueipairs = function(self) return ipairs(self.array) end,
          pairs = function(self)
                  local ak={}
                    for i=1,#self.dims do ak[i]=1 end
