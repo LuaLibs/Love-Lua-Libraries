@@ -49,7 +49,7 @@ ret = {
 
          def = function (self,index,value)
             local i = self.indexfromslot(self,index)
-            array[i] = value
+            self.array[i] = value
          end,
          
          get = function (self,index)
