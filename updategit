@@ -1,0 +1,6 @@
+license
+d=$(date)
+git add -A
+git commit -m "$d
+$1"
+git push

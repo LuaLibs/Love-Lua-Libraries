@@ -1,7 +1,7 @@
 --[[
   multidim.lua
   Multidimensional arrays for Lua
-  version: 16.04.08
+  version: 16.04.07
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -17,11 +17,16 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
--- Ugly version. I'm not proud of it, but Lua refuses to do it right otherwise.
 
--- -- *import quickmath
 
-mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.04.08")
+--- I tried to make this module in a neat way ---
+--- but whatever I do Lua REFUSES to do it    ---
+--- right, so I made an ULGY module take its  ---
+--- place with deep regrets                   ---
+
+-- *import quickmath
+
+mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.04.07")
 mkl.lic    ("Love Lua Libraries (LLL) - multidim.lua","ZLib License")
 
 function declaremultidim(dimensions)
@@ -39,7 +44,6 @@ ret = {
          dims = dimensions,
          
          indexfromslot= function(self,t)
-         --[[
          local ret=1
          assert(#t==#self.dims,"Incorrect number of dimensions (I have "..#self.dims..", I was asked for "..#t)
          for k,i in ipairs(t) do          
@@ -47,16 +51,7 @@ ret = {
                 ret = ret + (self.dims[k]*i)
                 assert(i>=1 and i<=self.dims[k],"Multiarray index out of range") 
              end
-             return ret         
-         ]]
-             local ret
-             assert(#t==#self.dims,"Incorrect number of dimensions (I have "..#self.dims..", I was asked for "..#t)
-             for k,i in ipairs(t) do
-                 if ret then ret = ret ..":" end
-                 assert(type(i)=='number',"Invalid index on "..k)
-                 ret = (ret or ">")..i
-                 end   
-             return ret.."<"    
+             return ret             
          end,
 
          def = function (self,index,value)
@@ -70,25 +65,21 @@ ret = {
             end,
             
          each = function(self) return each(self.array) end,
-         truepairs = function(self) return spairs(self.array) end,
+         trueipairs = function(self) return ipairs(self.array) end,
          pairs = function(self)
-                   local ak={}
-                   local value
+                 local ak={}
                    for i=1,#self.dims do ak[i]=1 end
                    ak[1]=0
                    return function()
                      local i=1
-                     --repeat
-                      ak[1]=ak[1]+1
-                      while ak[i]>self.dims[i] do
+                     ak[1]=ak[1]+1
+                     while ak[i]>self.dims[i] do
                          ak[i]=1
                          i=i+1
                          if i>#self.dims then return nil end
                          ak[i]=ak[i]+1
-                       end
-                       value = self.get(self,ak)
-                       --until value
-                     return ak,value
+                     end
+                     return ak,self.get(self,ak)
                    end  
                  end
       }  
