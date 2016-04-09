@@ -31,8 +31,8 @@ local t = {
          local min = 0
          local hor = 0
          local w = secs
-         hor = floor(w/3600); w = w - hor
-         min = floor(w/60);   w = w - min
+         hor = floor(w/3600); w = w - (hor*3600)
+         min = floor(w/60);   w = w - (min*60)
          sec = w
          local ret = ""
          if hor>0 then ret = hor..":" end
