@@ -19,8 +19,8 @@
 ]]
 -- *import mkl_version
 
-mkl_version
-mkl_lic
+mkl.version("Love Lua Libraries (LLL) - packtable.lua","16.04.09")
+mkl.lic    ("Love Lua Libraries (LLL) - packtable.lua","ZLib License")
 
 local function pt(table)
     --[[
