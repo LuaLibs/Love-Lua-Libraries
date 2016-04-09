@@ -33,15 +33,19 @@ local ret = {
                source = love.audio.newSource(file,mode or 'stream')
             }
        ret.source:setLooping(loop==true)     
+       assert(ret.source,"Failed to load: "..file)
 return ret            
 end shit.LoadSound = LoadSound
 
 function PlaySound(source)
-love.audio.play(source.source)
+local src = ({ ['string']=(function() return assets[source] end)(), ['table']=source})[type(source)] or error("invalid sfx type: "..type(source))
+assert(src.t=="audio","This is not audio. This is: "..strval(src.t))
+--print(serialize('source',src)) -- debug line
+love.audio.play(src.source)
 end shit.PlaySound=PlaySound
 
 function StopSound(source)
 love.audio.stop(source.source)
-end
+end shit.StopSound=StopSound
 
 return shit

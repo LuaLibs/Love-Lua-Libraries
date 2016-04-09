@@ -82,7 +82,7 @@ local croll = r.roll[r.process]
               r.retdata[croll[2]] = LoadImage(croll[3])
               end,
       audio = function()
-              r.retdata[croll[2]] = LoadSound(croll[3],croll[4],croll[5])       
+              r.retdata[croll[2]] = LoadSound(croll[3],croll[4] or false,croll[5] or 'static')       
               end                             
       
    })[croll[1]] or function() error("Unknown asset type: "..croll[1]) end)()
