@@ -24,6 +24,8 @@
 mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.04.08")
 mkl.lic    ("Love Lua Libraries (LLL) - multidim.lua","ZLib License")
 
+
+
 function declaremultidim(dimensions)
 assert(type(dimensions)=='table',"I can only a table for the dimension defintion. Not a "..type(dimensions))
 assert(#dimensions,"Illegal number of dimensions")
@@ -93,6 +95,13 @@ ret = {
                  end
       }  
 return ret        
+end
+
+
+function table2multidim(table,dimensions)
+local ret = declaremultidim(dimensions)
+ret.array=table
+return ret
 end
 
 
