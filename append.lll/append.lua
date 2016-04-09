@@ -37,7 +37,7 @@ for i,v in ipairs(tbla) do appendvalue(tls,v) end
 end
 
 local function append(tbl,value,byitems)
-({ [false]=appendvalue, [true]=appenditems })[value==true](tbl)
+({ [false]=appendvalue, [true]=appenditems })[value==true](tbl,value)
 end
 
 return append

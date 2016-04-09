@@ -54,3 +54,5 @@ local function pt(table)
     -- All done... let's return this shit!
     return ret
 end
+
+return pt
