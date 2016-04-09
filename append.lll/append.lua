@@ -1,7 +1,7 @@
 --[[
   append.lua
   Append
-  version: 16.04.02
+  version: 16.04.09
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -18,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 ]]
 
-mkl.version("Love Lua Libraries (LLL) - append.lua","16.04.02")
+mkl.version("Love Lua Libraries (LLL) - append.lua","16.04.09")
 mkl.lic    ("Love Lua Libraries (LLL) - append.lua","ZLib License")
 
 local function wanttable(tbl,v)
@@ -33,11 +33,11 @@ end
 local function appenditems(tbl,tbla)
 wanttable(tbl)
 wanttable(tbla,2)
-for i,v in ipairs(tbla) do appendvalue(tbs,v) end
+for i,v in ipairs(tbla) do appendvalue(tls,v) end
 end
 
 local function append(tbl,value,byitems)
-({ [false]=appendvalue, [true]=appenditems })[v==true]()
+({ [false]=appendvalue, [true]=appenditems })[value==true](tbl)
 end
 
 return append
