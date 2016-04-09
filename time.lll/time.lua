@@ -38,8 +38,11 @@ local t = {
          if hor>0 then ret = hor..":" end
          ret = ret .. right("0"..min,2)..":"..right("0"..sec,2)
          return ret                 
-     end
+     end,
 
+    now = function()
+      return os.date("%A %B %d"..(({['01']='st',['21']='st',['31']='st',['02']='nd',['22']='nd',['03']='rd',['23']='rd'})[os.date("%d")] or "th")..os.date(" %Y; %I:%M:%S%p"))
+    end
 
 
 }
