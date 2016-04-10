@@ -100,6 +100,7 @@ end
 
 function table2multidim(table,dimensions)
 local ret = declaremultidim(dimensions)
+assert(type(table)=='table',"Why are you giving me a "..type(table).." when I need a table?")
 ret.array=table
 return ret
 end
