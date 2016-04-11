@@ -38,3 +38,16 @@ function extractdir(a)
 	end
 return ""	
 end
+
+
+function stripext(a)
+	local ret = ""
+	local c
+	for i=1,#a,1 do
+	    c = mid(a,i,1)
+	    if c=="." then return ret end
+	    ret = c .. ret	    
+	end
+	return ret    
+
+end
