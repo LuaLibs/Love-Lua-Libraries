@@ -46,8 +46,7 @@ function stripext(a)
 	for i=1,#a,1 do
 	    c = mid(a,i,1)
 	    if c=="." then return ret end
-	    ret = c .. ret	    
+	    ret = ret .. c	    
 	end
 	return ret    
-
 end
