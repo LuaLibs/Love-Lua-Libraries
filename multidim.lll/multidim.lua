@@ -71,19 +71,20 @@ ret = {
             return self.array[i]
             end,
             
-         each = function(self) return each(self.array) end,
+         --each = function(self) return each(self.array) end, -- (won't work any more)
          truepairs = function(self) return spairs(self.array) end,
-         pairs = function(self)
+         pairs = function(self,pstart)
                    local ak={}
                    local value
-                   for i=1,#self.dims do ak[i]=1 end
-                   ak[1]=0
+                   local start = pstart or {} 
+                   for i=1,#self.dims do ak[i]=1 start[i]=start[i] or 1 end
+                   ak[1]=start[1]-1
                    return function()
                      local i=1
                      --repeat
                       ak[1]=ak[1]+1
                       while ak[i]>self.dims[i] do
-                         ak[i]=1
+                         ak[i]=start[i]
                          i=i+1
                          if i>#self.dims then return nil end
                          ak[i]=ak[i]+1

@@ -29,7 +29,6 @@ function stripdir(a)
 	return ret    
 end
 
-
 function extractdir(a)
 	local c
 	for i=#a,1,-1 do
