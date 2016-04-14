@@ -38,7 +38,10 @@ return ret
 end shit.LoadSound = LoadSound
 
 function PlaySound(source)
-local src = ({ ['string']=(function() return assets[source] end)(), ['table']=source})[type(source)] or error("invalid sfx type: "..type(source))
+local src = ({ 
+                  ['string']=(function() return assets[source] or { t = "empty asset: "..strval(source)} end)(), 
+                  ['table']=source})
+                  [type(source)] or error("invalid sfx type: "..type(source))
 assert(src.t=="audio","This is not audio. This is: "..strval(src.t))
 --print(serialize('source',src)) -- debug line
 love.audio.play(src.source)
