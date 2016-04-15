@@ -73,6 +73,10 @@ function s.load(file,keepcase,careful)
       local f = file..".lua"
       if keepcase~=false then f=upper(f) end
       local mychunk = love.filesystem.load(f)
+      if not mychunk then
+         local k,e = pcall(love.filesystem.load(f))
+         error ( "save.load('"..f.."',"..strval(keepcase)..","..strval(careful).."): "..e )
+         end
 	    return mychunk()
 	 end    
 end
