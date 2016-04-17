@@ -51,6 +51,9 @@ local ret = {}
                
      
 
+if buildversion then
+   ret.version("Build: "..(gametitle or "Project ?"),buildversion)
+   end
 
 
 local function me(mkl)
