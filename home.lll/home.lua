@@ -1,7 +1,7 @@
 --[[
   home.lua
   home
-  version: 16.03.27
+  version: 16.04.17
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -20,7 +20,7 @@
 
 -- *import mkl_version
 
-mkl.version("Love Lua Libraries (LLL) - home.lua","16.03.27")
+mkl.version("Love Lua Libraries (LLL) - home.lua","16.04.17")
 mkl.lic    ("Love Lua Libraries (LLL) - home.lua","ZLib License")
 
 local mydir = "Phantasar Productions"  -- You're free to rename this to your own name in or order to get the right folder!

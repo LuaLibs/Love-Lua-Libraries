@@ -1,7 +1,7 @@
 --[[
   chain.lua
   
-  version: 16.04.07
+  version: 16.04.17
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,7 +23,7 @@
 local love = {}   -- This was only meant to fool the outliner in my Lua IDE.
 -- *fi
 
-mkl.version("Love Lua Libraries (LLL) - chain.lua","16.04.07")
+mkl.version("Love Lua Libraries (LLL) - chain.lua","16.04.17")
 mkl.lic    ("Love Lua Libraries (LLL) - chain.lua","ZLib License")
 
 local chain={ current=nil, currentname=nil, map={}, x = {}, nothing = function() end}

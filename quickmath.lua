@@ -1,7 +1,7 @@
 --[[
   quickmath.lua
   Quick math features for lazy people like me
-  version: 16.04.04
+  version: 16.04.17
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -36,5 +36,5 @@ end
 
 
 -- *import mkl_version
-mkl.version("Love Lua Libraries (LLL) - quickmath.lua","16.04.04")
+mkl.version("Love Lua Libraries (LLL) - quickmath.lua","16.04.17")
 mkl.lic    ("Love Lua Libraries (LLL) - quickmath.lua","ZLib License")

@@ -1,7 +1,7 @@
 --[[
   append.lua
   Append
-  version: 16.04.09
+  version: 16.04.17
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -18,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 ]]
 
-mkl.version("Love Lua Libraries (LLL) - append.lua","16.04.09")
+mkl.version("Love Lua Libraries (LLL) - append.lua","16.04.17")
 mkl.lic    ("Love Lua Libraries (LLL) - append.lua","ZLib License")
 
 local function wanttable(tbl,v)
