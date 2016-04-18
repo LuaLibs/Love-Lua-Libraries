@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 16.04.17
+  version: 16.04.18
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,7 +25,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.17")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.18")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 
@@ -65,15 +65,15 @@ shit.LoadImage = LoadImage -- = love.graphics.newImage,love.graphics.newImage
 CLS = love.graphics.clear
 shit.CLS,shit.cls,shit.Cls,cls,Cls = CLS,CLS,CLS,CLS,CLS
 
-function DrawImage(img,x,y)
+function DrawImage(img,x,y,rad,sx,sy)
 local i = (({ ['string'] = function() return assets[img] end,
               ['table']  = function() return img end })[type(img)])()
 assert(i,"DrawImage("..valstr(img)..","..x..","..y.."): I have no image for "..valstr(img))
 -- This setup does not work the way it should, but that will be sorted out later.               
-love.graphics.push()
-love.graphics.origin(i.ox,i.oy)
-love.graphics.draw(i.image,x,y)
-love.graphics.pop()                   
+--love.graphics.push()
+--love.graphics.origin(i.ox,i.oy)
+love.graphics.draw(i.image,x,y,rad or 0,sx or 1, sy or sx or 1,i.ox or 0, i.oy or 0)
+--love.graphics.pop()                   
 end 
 
 function ImageSizes(img)
@@ -96,6 +96,10 @@ local w,h = ImageSizes(img)
 return h
 end
 
+function cpImg(img)
+local ret = {}
+for k,v in pairs(img) do ret[k] = v end
+end
 
 
 function HotCenter(img)
