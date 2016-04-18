@@ -72,7 +72,7 @@ assert(i,"DrawImage("..valstr(img)..","..x..","..y.."): I have no image for "..v
 -- This setup does not work the way it should, but that will be sorted out later.               
 --love.graphics.push()
 --love.graphics.origin(i.ox,i.oy)
-love.graphics.draw(i.image,x,y,rad or 0,sx or 1, sy or sx or 1,i.ox or 0, i.oy or 0)
+love.graphics.draw(i.image,x,y,rad or 0,i.scalex or sx or 1, i.scaley or sy or sx or 1,i.ox or 0, i.oy or 0)
 --love.graphics.pop()                   
 end 
 
@@ -99,6 +99,7 @@ end
 function cpImg(img)
 local ret = {}
 for k,v in pairs(img) do ret[k] = v end
+return ret
 end
 
 
