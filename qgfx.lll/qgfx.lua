@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 16.04.18
+  version: 16.04.21
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,7 +25,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.18")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.21")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 
@@ -101,6 +101,13 @@ local ret = {}
 for k,v in pairs(img) do ret[k] = v end
 return ret
 end
+
+function Hot(img,x,y)
+local i = (({ ['string'] = function() return assets[img] end,
+              ['table']  = function() return img end })[type(img)])()
+i.ox = x or i.ox
+i.oy = y or i.oy
+end             
 
 
 function HotCenter(img)

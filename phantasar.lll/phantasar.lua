@@ -1,7 +1,7 @@
 --[[
   phantasar.lua
   Phantasar Load Screen
-  version: 16.04.17
+  version: 16.04.21
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -26,9 +26,9 @@
 -- *import audio
 
 -- *undef dev_screen
--- *define dev_shownum
+-- *undef dev_shownum
 
-mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.04.17")
+mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.04.21")
 mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
 
 
@@ -36,6 +36,16 @@ local r ={}
 local mylogo = LoadImage("$$mydir$$/LOGO.PNG")-- love.graphics.newImage("$$mydir$$/LOGO.PNG")
 
 local retdata
+local afteraction = {}
+
+
+function r.after(a)
+  assert(type(a)=='function' or type(a)=='table',"phantasar.after(): I cannot process: "..type(a))
+  local tab = ({['function'] = {a}, ['table']=a })[type(a)]
+  for f in each(tab) do
+      afteraction[#afteraction] = f
+  end 
+end
 
 function r.draw()
 local ww --= love.window.getWidth()
@@ -69,6 +79,7 @@ local wh --= love.window.getHeight()
 local wf
 ww,wh,wf = love.window.getMode()
 if r.process>=r.total then
+   for f in each(afteraction) do f() end
    chain.go(r.chainto) 
    return 
    end
