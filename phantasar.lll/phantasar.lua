@@ -27,6 +27,7 @@
 
 -- *undef dev_screen
 -- *undef dev_shownum
+-- *define dev_after
 
 mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.04.21")
 mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
@@ -41,9 +42,13 @@ local afteraction = {}
 
 function r.after(a)
   assert(type(a)=='function' or type(a)=='table',"phantasar.after(): I cannot process: "..type(a))
+  --print(type(a))
   local tab = ({['function'] = {a}, ['table']=a })[type(a)]
   for f in each(tab) do
-      afteraction[#afteraction] = f
+      afteraction[#afteraction+1] = f
+      -- *if dev_after
+      print("after "..type(f).." added - "..#afteraction)
+      -- *fi
   end 
 end
 
@@ -79,7 +84,12 @@ local wh --= love.window.getHeight()
 local wf
 ww,wh,wf = love.window.getMode()
 if r.process>=r.total then
-   for f in each(afteraction) do f() end
+   for f in each(afteraction) do
+       -- *if dev_after
+       print("= After function being executed")
+       -- *fi 
+       f() 
+       end
    chain.go(r.chainto) 
    return 
    end
