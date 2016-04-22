@@ -1,7 +1,7 @@
 --[[
   time.lua
   Time Library
-  version: 16.04.17
+  version: 16.04.22
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -20,7 +20,7 @@
 
 -- *import quickmath
 
-mkl.version("Love Lua Libraries (LLL) - time.lua","16.04.17")
+mkl.version("Love Lua Libraries (LLL) - time.lua","16.04.22")
 mkl.lic    ("Love Lua Libraries (LLL) - time.lua","ZLib License")
 
 local t = {
@@ -42,8 +42,11 @@ local t = {
 
     now = function()
       return os.date("%A %B %d"..(({['01']='st',['21']='st',['31']='st',['02']='nd',['22']='nd',['03']='rd',['23']='rd'})[os.date("%d")] or "th")..os.date(" %Y; %I:%M:%S%p"))
-    end
+    end,
 
+    month = function() return tonumber(os.date("%m")) end,
+    day   = function() return tonumber(os.date("%d")) end,
+    year  = function() return tonumber(os.date("%Y")) end
 
 }
 

@@ -1,7 +1,7 @@
 --[[
   phantasar.lua
   Phantasar Load Screen
-  version: 16.04.21
+  version: 16.04.22
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -27,9 +27,9 @@
 
 -- *undef dev_screen
 -- *undef dev_shownum
--- *define dev_after
+-- *undef dev_after
 
-mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.04.21")
+mkl.version("Love Lua Libraries (LLL) - phantasar.lua","16.04.22")
 mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
 
 
