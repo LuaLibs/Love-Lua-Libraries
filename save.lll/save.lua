@@ -1,7 +1,7 @@
 --[[
   save.lua
   Save Routine
-  version: 16.04.17
+  version: 16.05.27
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -71,7 +71,7 @@ function s.load(file,keepcase,careful)
       return j_love_import(file..".lua",keepcase~=false)
    else
       local f = file..".lua"
-      if keepcase~=false then f=upper(f) end
+      if keepcase==false then f=upper(f) end
       local mychunk = love.filesystem.load(f)
       if not mychunk then
          local k,e = pcall(love.filesystem.load(f))

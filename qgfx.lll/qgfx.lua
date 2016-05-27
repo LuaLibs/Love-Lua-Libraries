@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 16.04.21
+  version: 16.05.27
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,7 +25,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.04.21")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","16.05.27")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 
@@ -36,6 +36,7 @@ local ret = { ox = 0, oy = 0, t="image", file=file,
 if type(file)=='string' then ret.image = love.graphics.newImage(upper(file)) else ret.image=file end            
 return ret
 end
+
              
 
 function LangFont(langarray)
