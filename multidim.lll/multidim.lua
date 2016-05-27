@@ -1,7 +1,7 @@
 --[[
   multidim.lua
   Multidimensional arrays for Lua
-  version: 16.04.17
+  version: 16.05.27
   Copyright (C) 2016 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -17,11 +17,12 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
 -- Ugly version. I'm not proud of it, but Lua refuses to do it right otherwise.
 
 -- -- *import quickmath
 
-mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.04.17")
+mkl.version("Love Lua Libraries (LLL) - multidim.lua","16.05.27")
 mkl.lic    ("Love Lua Libraries (LLL) - multidim.lua","ZLib License")
 
 
