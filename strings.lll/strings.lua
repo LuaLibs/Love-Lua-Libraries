@@ -1,8 +1,8 @@
 --[[
   strings.lua
   Strings
-  version: 16.04.17
-  Copyright (C) 2016 Jeroen P. Broks
+  version: 17.07.27
+  Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -21,13 +21,13 @@
 -- *import mkl_version
 
 function prefixed(a,b)
-return left(a,len(b)) == b
+     return left(a,len(b)) == b
 end
 
 function suffixed(a,b)
-return right(a,len(b)) == b
+     return right(a,len(b)) == b
 end
 
 
-mkl.version("Love Lua Libraries (LLL) - strings.lua","16.04.17")
+mkl.version("Love Lua Libraries (LLL) - strings.lua","17.07.27")
 mkl.lic    ("Love Lua Libraries (LLL) - strings.lua","ZLib License")
