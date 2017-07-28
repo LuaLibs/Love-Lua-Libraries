@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.27
+        Version: 17.07.28
 ]]
 local tf = {
 
@@ -54,7 +54,49 @@ local tf = {
     end,
     
     kpressed = function(s,key,scancode)
-    end
+       -- print("User pressed: "..key) -- I need to make sure I got all keys right.
+       if s~=lun_active then return end
+       local ch
+       local xd = lunamorica.xdown
+       if #key==1 then
+          ch=key
+          if xd.shift then 
+             ch = ch:upper()
+             -- I took the standard QWERTY keyboard in mind. This would otherwise be too much hassle to deal with. Sorry!
+             if ch=='`'  then ch="~" end
+             if ch=='1'  then ch='!' end
+             if ch=='2'  then ch='@' end
+             if ch=='3'  then ch='#' end
+             if ch=='4'  then ch='$' end
+             if ch=='5'  then ch='%' end
+             if ch=='6'  then ch='^' end
+             if ch=='7'  then ch='&' end
+             if ch=='8'  then ch='*' end
+             if ch=='9'  then ch='(' end
+             if ch=='0'  then ch=')' end
+             if ch=='-'  then ch='_' end
+             if ch=='\\' then ch='|' end
+             if ch==';'  then ch=':' end
+             if ch=="'"  then ch='"' end
+             if ch==','  then ch='<' end
+             if ch=='>'  then ch='>' end
+             if ch=='/'  then ch='?' end
+             if ch=='['  then ch='{' end
+             if ch==']'  then ch='}' end    
+          end
+       end     
+       if prefixed(key,'kp') and #key==3 then ch=right(key,1) end
+       if key=='space' then ch=" " end
+       if ch and #s.text<s.maxlength then s.text=s.text..ch end
+       if key=='return' or key=='kpenter' and s.action then s:action() end
+       if key=='backspace' and s.text~="" then s.text=left(s.text,#s.text-1) end
+    end,
+   
+   mpressed = function(s,mx,my,b,t)
+      print("CLICK! ("..s.ax..","..s.ay..")")
+      if s==lun_active then return end
+      if mx>=s.ax and mx<=s.ax+s.w and my>=s.ay and my<=s.ay+s.h then lun_active=s end
+   end 
 }
 
 

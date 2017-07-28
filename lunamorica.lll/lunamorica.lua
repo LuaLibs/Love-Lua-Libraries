@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.27
+        Version: 17.07.28
 ]]
 
 -- *import mkl_version
@@ -15,7 +15,7 @@
 -- *if ignore
 local mkl = {}
 -- *fi
-mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.27")
+mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.28")
 mkl.lic    ("Love Lua Libraries (LLL) - lunamorica.lua","Mozilla Public License 2.0")
 
 
@@ -69,6 +69,8 @@ local lunamorica = {
 
 lun_active = nil
 
+lunamorica.xdown = {}
+
 local defaultconfig = {
                         -- F = Foreground, B = Background
                         -- R = Red, G=Greem, B=Blue
@@ -106,16 +108,37 @@ end
 local function lv_keypressed(self,k,sc,donotrecurse)
    if self.visible and self.enabled then
       if self.lf_kpressed then self:lf_kpressed(k,sc) end
-      if not donotrecurse then for id,kid in self.serial(self.kids) do kid:kpressed(k,sc) end end
-      
+      if not donotrecurse then for id,kid in self.serial(self.kids) do kid:keypressed(k,sc) end end
+      if k=='lshift' or k=='rshift' then lunamorica.xdown['shift']=true end
+      if k=='lalt'   or k=='ralt'   then lunamorica.xdown['alt']=true end
+      if k=='lctrl'  or k=='rctrl'  then 
+          lunamorica.xdown['ctrl']=true
+          -- *if !$MAC
+          lunamorica.xdown['command']=true
+          -- *fi
+      end    
+      -- *if $MAC
+      if k=='lgui'  or k=='rgui'   then lunamorica.xdown['command']=true end  
+      -- *fi              
    end
 end
 
--- I've set this up just in case, but I don't expect to need it.
+-- It *IS* needed. Very little gadgets will use this, but at least you can be sure this way keys like shift and ctrl will count as "released"
 local function lv_keyreleased(self,k,sc,donotrecurse)
    if self.visible and self.enabled then
       if self.lf_kreleased then self:lf_kreleased(k,sc) end
-      if not donotrecurse then for id,kid in self.serial(self.kids) do kid:kreleased(k,sc) end end
+      if not donotrecurse then for id,kid in self.serial(self.kids) do kid:keyreleased(k,sc) end end
+      if k=='lshift' or k=='rshift' then lunamorica.xdown['shift']=false end
+      if k=='lalt'   or k=='ralt'   then lunamorica.xdown['alt']=false end
+      if k=='lctrl'  or k=='rctrl'  then 
+          lunamorica.xdown['ctrl']=false
+          -- *if !$MAC
+          lunamorica.xdown['command']=false
+          -- *fi
+      end    
+      -- *if $MAC
+      if k=='lgui'  or k=='rgui'   then lunamorica.xdown['command']=false end                
+      -- *fi
    end
 end
 
@@ -124,15 +147,15 @@ end
 local function lv_mousehit(self,x,y,b,t)
    if self.visible and self.enabled then
       if self.lf_mpressed then self:lf_mpressed(x,y,b,t) end
-      for id,kid in self.serial(self.kids) do kid:mpressed(x,y,b,t) end       
+      for id,kid in self.serial(self.kids) do kid:mousepressed(x,y,b,t) end       
    end
 end
 
 -- Not expected to be needed, but just in case
-local function lv_mousehit(self,x,y,b,t)
+local function lv_mousereleased(self,x,y,b,t)
    if self.visible and self.enabled then
       if self.lf_mreleased then self:lf_mreleased(x,y,b,t) end
-      for id,kid in self.serial(self.kids) do kid:mreleased(x,y,b,t) end       
+      for id,kid in self.serial(self.kids) do kid:mousereleased(x,y,b,t) end       
    end
 end
 
@@ -227,9 +250,18 @@ function lunamorica.update(gadget,parent)
      gadget.show    = lv_show
      gadget.draw    = lv_show
      gadget.update  = lv_update     
+     gadget.keypressed
+                    = lv_keypressed
+     gadget.keyreleased
+                    = lv_keyreleased
+     gadget.mousehit= lv_mousehit
+     gadget.mousepressed
+                    = lv_mousehit
+     gadget.mousereleased
+                    = lv_mousereleased                                                                  
      gadget.color   = gadgetcolor
      gadget.getcaption
-                    = gcaption
+                    = gcaption                    
      gadget.setfont = lv_font               
      ;(gadget.lf_init or LNOTHING)(gadget,config)
      --[[ Debug
