@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.27
+        Version: 17.07.29
 ]]
 local pic = {
 
@@ -20,12 +20,19 @@ local pic = {
          g.sy = g.sy or 1         
          g.PR = g.PR or 255
          g.PG = g.PG or 255
-         g.PB = g.PB or 255
+         g.PB = g.PB or 255       
+         if g.caption then g.image='text:'..g.getcaption() end
          assert(g.image or "No image for picture gadget")
          assert(type(g.image)=='string','Invalid file name type. Expected string but got '..type(g.image))
-         print('Loading picture: '..g.image:upper())
-         g.dimage = love.graphics.newImage(g.image:upper())      
-         assert(g.dimage,"Loading picture ("..g.image..") failed")   
+         if prefixed(g.image,"text:") then
+            print('Converting '..g.image..' into a picture')
+            local f = g:setfont(true)
+            g.dimage = love.graphics.newText(f,right(g.image,#g.image-5))
+         else   
+            print('Loading picture: '..g.image:upper())
+            g.dimage = love.graphics.newImage(g.image:upper())      
+            assert(g.dimage,"Loading picture ("..g.image..") failed")
+         end      
          g.iw = g.dimage:getWidth( )
          g.ih = g.dimage:getHeight()
          if g.hot then
@@ -54,6 +61,8 @@ local pic = {
 
 
 }
+
+
 
 
 return pic

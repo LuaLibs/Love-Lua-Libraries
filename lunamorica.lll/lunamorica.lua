@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.28
+        Version: 17.07.29
 ]]
 
 -- *import mkl_version
@@ -15,7 +15,7 @@
 -- *if ignore
 local mkl = {}
 -- *fi
-mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.28")
+mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.29")
 mkl.lic    ("Love Lua Libraries (LLL) - lunamorica.lua","Mozilla Public License 2.0")
 
 
@@ -161,11 +161,11 @@ end
 
 local function gadgetcolor(self,back)
    if back=='pic' then
-     love.graphics.setColor( self.PR, self.PG , self.PB, self.alpha )      
+     love.graphics.setColor( self.PR, self.PG , self.PB, self.picalpha or self.alpha )      
    elseif back then
-     love.graphics.setColor( self.BR, self.BG , self.BB, self.alpha )
+     love.graphics.setColor( self.BR, self.BG , self.BB, self.backalpha or self.alpha)
    else  
-     love.graphics.setColor( self.FR, self.FG , self.FB, self.alpha )
+     love.graphics.setColor( self.FR, self.FG , self.FB, self.frontalpha or self.alpha )
    end  
 end   
 
@@ -173,7 +173,7 @@ local function gcaption(self)
    return self.acaption or self.caption or ""
 end   
 
-local function lv_font(self)
+local function lv_font(self,dontset)
     local f = (self.font or "Default"):lower()
     local s = self.fontsize or 12
     local t = f..":"..s
@@ -182,7 +182,8 @@ local function lv_font(self)
     else   
        loadedfonts[f] = loadedfonts[f] or love.graphics.newFont(f:upper(),s)
     end   
-    love.graphics.setFont(loadedfonts[f])
+    if not dontset then love.graphics.setFont(loadedfonts[f]) end
+    return loadedfonts[f]
 end    
 
 -- This will tell Lunamorica how to deal with certain events triggered by gadgets.
