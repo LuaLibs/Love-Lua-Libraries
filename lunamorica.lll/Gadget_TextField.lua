@@ -93,7 +93,7 @@ local tf = {
     end,
    
    mpressed = function(s,mx,my,b,t)
-      print("CLICK! ("..s.ax..","..s.ay..")")
+      --print("CLICK! ("..s.ax..","..s.ay..")")
       if s==lun_active then return end
       if mx>=s.ax and mx<=s.ax+s.w and my>=s.ay and my<=s.ay+s.h then lun_active=s end
    end 
