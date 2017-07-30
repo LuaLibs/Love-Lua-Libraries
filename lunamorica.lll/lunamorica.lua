@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.29
+        Version: 17.07.30
 ]]
 
 -- *import mkl_version
@@ -15,7 +15,7 @@
 -- *if ignore
 local mkl = {}
 -- *fi
-mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.29")
+mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.30")
 mkl.lic    ("Love Lua Libraries (LLL) - lunamorica.lua","Mozilla Public License 2.0")
 
 
@@ -286,6 +286,19 @@ end
 function lunamorica.updateall()
      lunamorica.update(screen)
 end
+
+-- This will free a gadget and all its children.
+-- It's important to do it this way, and not simply by gadget=nil
+-- The gadgets contain circular references to each other which MUST all be severed.
+-- This due to some issues with the Lua garbage collector, and that will cause serious memory leaks in the process.
+function lunamorica.free(gadget)
+     assert (gadget and gadget~=screen,"Invalid free request")
+     for g in each(gadget.kids) do lunamorica.free(g) end
+     (gadget.lf_destroy or LNOTHING)(gadget)
+     gadget.parent = nil -- I must be 100% sure this tie is severed!
+     for k,v in pairs(gadget) do gadget[k] = nil end -- Making sure no more ties are there.
+end      
+     
           
 
 return lunamorica
