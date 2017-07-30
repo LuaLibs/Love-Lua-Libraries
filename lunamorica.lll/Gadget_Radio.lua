@@ -41,6 +41,7 @@ local radio_gaga_radio_blahblah = {
           if b==1 and inside(g,x,y) then 
              for k,cg in pairs(g.parent.kids) do cg.checked=false end
              g.checked=true
+             if g.action then g:action() end
           end   
       end
 
