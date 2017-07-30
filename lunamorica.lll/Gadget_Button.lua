@@ -6,9 +6,13 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.29
+        Version: 17.07.30
 ]]
 -- *import xmath
+
+local function inside(g,x,y)
+    return x>g.ax and x<g.ax+g.w and y>g.ay and y<g.ay+g.h
+end    
 
 local knopje = { 
 
@@ -96,9 +100,18 @@ local knopje = {
              love.graphics.setColor(g[drw.cpf.."R"],g[drw.cpf.."G"],g[drw.cpf.."B"])
              love.graphics.draw(drw.drw,drw.x+g.ax,drw.y+g.ay)
          end  
-    end
+    end,
     
-
+    mpressed=function(g,x,y,b,t)
+       if inside(g,x,y) and b==1 then g.held=true end
+    end,
+    
+    mreleased=function(g,x,y,b,t)
+      if inside(g,x,y) and b==1 and g.held and g.action then
+         g:action()
+      end
+      g.held=false
+   end
 
 
 } 
