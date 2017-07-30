@@ -22,7 +22,7 @@ return function(mode,x,y,w,h)
   local hw = w/2
   local hh = h/2
   local cx = x + hw
-  local cy = y + hy
+  local cy = y + hw
   love.graphics.elipse(mode,cx,cy,hw,hh)
   
 end
