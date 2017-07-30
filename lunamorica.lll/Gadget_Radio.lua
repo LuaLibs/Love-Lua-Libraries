@@ -1,4 +1,19 @@
+--[[
+        Gadget_Radio.lua
+	(c) 2017 Jeroen Petrus Broks.
+	
+	This Source Code Form is subject to the terms of the 
+	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
+	distributed with this file, You can obtain one at 
+	http://mozilla.org/MPL/2.0/.
+        Version: 17.07.30
+]]
 -- *import altellipse
+
+local function inside(g,x,y)
+    return x>g.ax and x<g.ax+g.w and y>g.ay and y<g.ay+g.h
+end    
+
 
 local radio_gaga_radio_blahblah = {
 
@@ -20,6 +35,13 @@ local radio_gaga_radio_blahblah = {
              if g.checked then
                 altellipse('fill',g.ax+3,g.ay+3,g.w-6,g.h-6)
              end   
+      end,
+      
+      mpressed = function(g,x,y,b,t)
+          if b==1 and inside(g,x,y) then 
+             for k,cg in pairs(g.parent.kids) do cg.checked=false end
+             g.checked=true
+          end   
       end
 
 }
