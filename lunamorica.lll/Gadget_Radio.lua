@@ -39,7 +39,7 @@ local radio_gaga_radio_blahblah = {
       
       mpressed = function(g,x,y,b,t)
           if b==1 and inside(g,x,y) then 
-             for k,cg in pairs(g.parent.kids) do cg.checked=false end
+             for k,cg in pairs(g.parent.kids) do if cg.kind=='radio' then cg.checked=false end end
              g.checked=true
              if g.action then g:action() end
           end   
