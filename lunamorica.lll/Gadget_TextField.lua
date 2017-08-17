@@ -87,9 +87,15 @@ local tf = {
        end     
        if prefixed(key,'kp') and #key==3 then ch=right(key,1) end
        if key=='space' then ch=" " end
-       if ch and #s.text<s.maxlength then s.text=s.text..ch end
+       if ch and #s.text<s.maxlength then 
+          s.text=s.text..ch
+          if s.typing then s:typing() end 
+       end
        if key=='return' or key=='kpenter' and s.action then s:action() end
-       if key=='backspace' and s.text~="" then s.text=left(s.text,#s.text-1) end
+       if key=='backspace' and s.text~="" then 
+          s.text=left(s.text,#s.text-1)
+          if s.typing then s:typing() end 
+       end
     end,
    
    mpressed = function(s,mx,my,b,t)
