@@ -42,6 +42,7 @@ end
 function love.update()
 if not chain.current then return end
 if not chain.current.update then return end
+if chain.x.update then chain.x.update() end
 return chain.current.update()
 end 
 
@@ -55,14 +56,16 @@ end
 function love.keypressed(key,scan,repeated)
 keypressed[key] = true
 scankeypressed[scan] = true
+if chain.x.keypressed then chain.x.keypressed(key,scan,repeated) end
 if not chain.current then return end
 if not chain.current.keypressed then return end
 chain.current.keypressed(key,scan,repeated)
 end
 
-function love.keyreleased(key,scan)
+function love.keyreleased(key,scan,repeated)
 keypressed[key] = nil
 scankeypressed[scan]=nil
+if chain.x.keyreleased then chain.x.keyreleased(key,scan,repeated) end 
 if not chain.current then return end
 if not chain.current.keyreleased then return end
 chain.current.keyreleased(key,scan,repeated)
@@ -70,12 +73,15 @@ end
 
 
 function love.mousepressed( x, y, button, istouch )
+if chain.x.mousepressed then chain.x.mousepressed(x,y,button,istouch) end
 if not chain.current then return end
 if not chain.current.mousepressed then return end
 chain.current.mousepressed(x, y, button, istouch)
+--print("X"..type(chain.x.mousepressed)) -- Debug
 end
 
-function love.mousereleased( x, y, button )
+function love.mousereleased( x, y, button, istouch )
+if chain.x.mousereleased then chain.x.mousereleased(x,y,button,istouch) end
 if not chain.current then return end
 if not chain.current.mousereleased then return end
 chain.current.mousereleased(x, y, button, istouch)
