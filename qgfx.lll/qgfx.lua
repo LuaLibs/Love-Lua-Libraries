@@ -20,6 +20,8 @@
 
 -- *import mkl_version
 
+--[[ NOTE! This library is deprecated! It was only kept for backward compatibility purposes! Use qgfx2 in stead ]]
+
 
 local shit = {}
 
@@ -33,7 +35,7 @@ mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 function LoadImage(file)
 local ret = { ox = 0, oy = 0, t="image", file=file,
             }
-if type(file)=='string' then ret.image = love.graphics.newImage(upper(file)) else ret.image=file end            
+if type(file)=='string' then ret.images = love.graphics.newImage(upper(file)) else ret.image=file end            
 return ret
 end
 
