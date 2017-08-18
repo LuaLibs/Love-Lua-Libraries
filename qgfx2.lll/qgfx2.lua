@@ -1,7 +1,7 @@
 --[[
   qgfx2.lua
   
-  version: 17.08.17
+  version: 17.08.19
   Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -44,7 +44,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx2.lua","17.08.17")
+mkl.version("Love Lua Libraries (LLL) - qgfx2.lua","17.08.19")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx2.lua","ZLib License")
 
 
@@ -53,7 +53,7 @@ function LoadImage(file)
   local ret = { ox = 0, oy = 0, t="image", file=file,
               }
   if type(file)=='string' then
-     if love.filesystem.isDir(file:upper()) then
+     if love.filesystem.isDirectory(file:upper()) then
        local files = love.filesystem.getDirectoryItems( file:upper() )
        table.sort(files)
        local l = {}    ret.images = l
@@ -82,7 +82,7 @@ function LoadImage(file)
        end   
      else    
        ret.images = {love.graphics.newImage(upper(file))}
-       if not ret.image[1] then return end
+       if not ret.images[1] then return end
      end   
   else 
      ret.image={file} 
@@ -133,7 +133,9 @@ end
 
 function ImageSizes(img)
 local i = (({ ['string'] = function() return assets[img] end,
-              ['table']  = function() return img end })[type(img)])()
+              ['table']  = function() return img end ,
+              ['nil']    = function() error("I have no image for "..valstr(img)) end }
+              )[type(img)])()
 local w,h
 assert(i,"I have no image for "..valstr(img))
 w = i.images[1]:getWidth()
