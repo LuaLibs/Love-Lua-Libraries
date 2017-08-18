@@ -1,9 +1,8 @@
 --[[
-Rem
-  GINI.bmx
-  2015, 2016
-  version: 17.03.29
-  Copyright (C) 2017 Jeroen P. Broks
+  gini.lua
+  
+  version: 17.08.18
+  Copyright (C) 2015, 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -17,9 +16,7 @@ Rem
   2. Altered source versions must be plainly marked as such, and must not be
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
-]] -- End Rem]]
-
-
+]]
 
 --[[
 
@@ -35,8 +32,8 @@ Rem
 -- *import listfile
 -- *import filestuff
 
-mkl.version("Tricky's Units - GINI.bmx","17.03.29")
-mkl.lic     ("Tricky's Units - GINI.bmx","ZLib License")
+mkl.version("Love Lua Libraries (LLL) - gini.lua","17.08.18")
+mkl.lic    ("Love Lua Libraries (LLL) - gini.lua","ZLib License")
 
 
 --Private
