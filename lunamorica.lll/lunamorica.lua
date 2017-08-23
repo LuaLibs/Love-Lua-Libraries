@@ -227,7 +227,7 @@ function lunamorica.patchgadget(original,ptag,extra)
    local tag = ptag or "unknown"
    if not prefixed(tag,"$") then tag = "$"..tag end
    gadgets[tag]={}
-   for tab in each({original,extra}) do
+   for tab in each({gadgets[original],extra}) do
      for f,d in pairs(tab) do gadgets[tag][f]=d end
    end      
 end
