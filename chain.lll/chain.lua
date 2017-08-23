@@ -39,11 +39,11 @@ chain.current.draw()
 ;(chain.x.afterdraw or chain.nothing)()
 end
 
-function love.update()
-if not chain.current then return end
-if not chain.current.update then return end
-if chain.x.update then chain.x.update() end
-return chain.current.update()
+function love.update(dt)
+  if not chain.current then return end
+  if not chain.current.update then return end
+  if chain.x.update then chain.x.update(dt) end
+  return chain.current.update(dt)
 end 
 
 
