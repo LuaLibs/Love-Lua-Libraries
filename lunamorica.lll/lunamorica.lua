@@ -221,6 +221,17 @@ function lunamorica.addgadget(ptag,gadget)
   gadgets[tag] = gadget
 end
 
+function lunamorica.patchgadget(original,ptag,extra)
+   assert(gadgets[original],"I cannot patch non-existent gadget: "..sval(original))
+   assert(type(extra)=='table','I need a table to patch. Not a '..type(extra))   
+   local tag = ptag or "unknown"
+   if not prefixed(tag,"$") then tag = "$"..tag end
+   gadgets[tag]={}
+   for tab in each({original,extra}) do
+     for f,d in pairs(tab) do gadgets[tag][f]=d end
+   end      
+end
+
 -- This function will attach all proper functions and other stuff to the gadgets
 function lunamorica.update(gadget,parent)
      assert(gadget      , 'I got a "nil" for a gadget')

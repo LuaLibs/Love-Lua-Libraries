@@ -46,7 +46,7 @@ local function deal_event(evnt,a1,a2,a3,a4,a5)
 end        
 
 
-chain.x.update=function(dt)             deal_event('update',dt) end
+chain.x.update=function(dt)             deal_event('lupdate',dt) end
 chain.x.afterdraw=function()            deal_event('draw') end
 chain.x.keypressed=function(k,s,r)      deal_event('keypressed',k,s,r) end
 chain.x.keyreleased=function(k,s,r)     deal_event('keyreleased',k,s,r) end
