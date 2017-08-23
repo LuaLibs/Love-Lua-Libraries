@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.30
+        Version: 17.08.23
 ]]
 
 -- *import mkl_version
@@ -15,7 +15,7 @@
 -- *if ignore
 local mkl = {}
 -- *fi
-mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.07.30")
+mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.08.23")
 mkl.lic    ("Love Lua Libraries (LLL) - lunamorica.lua","Mozilla Public License 2.0")
 
 
@@ -95,7 +95,7 @@ local function lv_show(self) -- to use in the "love.draw" function
    end   
 end
 
-local function lv_update(self) -- to use in the "love.update" function. If no gadget features using this are there, best not to use this one to save performance.
+local function lv_update(self,dt) -- to use in the "love.update" function. If no gadget features using this are there, best not to use this one to save performance.
    if self.visible and self.enabled then
       if self.lf_lupdate then self:lf_lupdate() end
       for id,kid in self.serial(self.kids) do kid:lupdate() end
@@ -259,7 +259,8 @@ function lunamorica.update(gadget,parent)
      gadget.mousepressed
                     = lv_mousehit
      gadget.mousereleased
-                    = lv_mousereleased                                                                  
+                    = lv_mousereleased           
+     gadget.lupdate = lv_update                                                                      
      gadget.color   = gadgetcolor
      gadget.getcaption
                     = gcaption                    
