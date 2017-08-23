@@ -1,7 +1,7 @@
 --[[
   qgfx.lua
   quick graphics
-  version: 17.08.17
+  version: 17.08.23
   Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -27,7 +27,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx.lua","17.08.17")
+mkl.version("Love Lua Libraries (LLL) - qgfx.lua","17.08.23")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx.lua","ZLib License")
 
 
@@ -119,4 +119,8 @@ local i = (({ ['string'] = function() return assets[img] end,
 i.ox=i.image:getWidth()/2
 i.oy=i.image:getHeight()/2
 end; shit.HotCenter = HotCenter
+
+QText=love.graphics.print
+shit.QText=QText
 return shit
+

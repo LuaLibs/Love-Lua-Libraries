@@ -1,7 +1,7 @@
 --[[
   chain_lunamorica.lua
   
-  version: 17.08.17
+  version: 17.08.23
   Copyright (C) 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -33,7 +33,7 @@
 -- *import chain
 -- *import lunamorica
 
-mkl.version("Love Lua Libraries (LLL) - chain_lunamorica.lua","17.08.17")
+mkl.version("Love Lua Libraries (LLL) - chain_lunamorica.lua","17.08.23")
 mkl.lic    ("Love Lua Libraries (LLL) - chain_lunamorica.lua","ZLib License")
 
 lunar = {}
@@ -46,7 +46,7 @@ local function deal_event(evnt,a1,a2,a3,a4,a5)
 end        
 
 
-chain.x.update=function()               deal_event('update') end
+chain.x.update=function(dt)             deal_event('update',dt) end
 chain.x.afterdraw=function()            deal_event('draw') end
 chain.x.keypressed=function(k,s,r)      deal_event('keypressed',k,s,r) end
 chain.x.keyreleased=function(k,s,r)     deal_event('keyreleased',k,s,r) end
