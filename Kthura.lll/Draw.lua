@@ -32,7 +32,16 @@ end
 local function niets() end
 
 local function animate(o)
-   -- content comes later 
+   if o.FRAMESPEED==-1 then return end
+   local t = love.timer.getTime()
+   o.FRAMETIME = o.FRAMETIME or t 
+   if math.abs(t-o.FRAMETIME)<.5 then return end
+   o.FRAMETIME = t
+   o.FRAMEROLL = (o.FRAMEROLL or o.FRAMESPEED) - 1
+   if o.FRAMEROLL<=0 then
+      o.FRAME = o.FRAME + 1
+      if #o.LoadedTexture<o.FRAME then o.FRAME=1 end
+   end   
 end
 
 local function ktcolor(o)
@@ -67,7 +76,22 @@ local drawclass = {
           return r
        end,
        draw = function(self,camx,camy)
-          
+           animate(self)
+           ktcolor(self)
+           self.X = self.COORD.x
+           self.Y = self.COORD.y
+           --[[
+           if self.SIZE.width==0 or self.SIZE.height==0 then
+              DrawImage(self.LoadedTexture,self.X-(camx or 0),self.Y-(camy or 0),self.FRAME,self.ROTATION,self.SCALE.x/1000,self.SCALE.y/1000)
+           else
+           ]]
+              local pw,ph=ImageSizes(self.LoadedTexture)
+              for x=0,self.SIZE.width-1 do for y=0,self.SIZE.height-1 do
+                 local mdx=x*pw
+                 local mdy=y*ph
+                 DrawImage(self.LoadedTexture,(mdx+self.X)-(camx or 0),(mdy+self.Y)-(camy or 0),self.FRAME,self.ROTATION,self.SCALE.x/1000,self.SCALE.y/1000)
+              end end
+           --end             
        end,
     },
     Zone = { -- Here everyhting just has to be empty
@@ -75,7 +99,28 @@ local drawclass = {
        draw=function(o) end
     
     },
-    Exit = {LoadTexture=niets,draw=niets}
+    Actor = {
+       LoadTexture=function (a)
+            local r = genloadtexture(a)
+            local tx = a.TEXTURE:upper()
+            if (love.filesystem.isDirectory(tx) and (love.filesystem.isFile(tx.."/HOTSPOINTS"))) or love.filesystem.isFile(tx) then
+               Hot(r,w/2,h)
+            end
+            return r
+       end,
+       draw=function(self,camx,camy)
+           if self.anim or self.moving or self.walking then
+              animate(self)
+           end
+           ktcolor(self)
+           local ax = self.COORD.x - (camx or 0)
+           local ay = self.COORD.y - (camy or 0)
+           DrawImage(self.LoadedTexture,ax,ay,self.FRAME,self.ROTATION,self.SCALE.x/1000,self.SCALE.y/1000)
+       end
+    
+    },
+    
+    Exit = {LoadTexture=niets,draw=niets}    
 
 }
 

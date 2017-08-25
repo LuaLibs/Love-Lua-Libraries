@@ -21,7 +21,7 @@ function kthura.remapdominance(map)
    map.dominancemap = {}
    for lay,objl in pairs(map.MapObjects) do for o in each(objl) do
        map.dominancemap[lay] = map.dominancemap[lay] or {}
-       local domstring = right("00000000000000000000"..o.DOMINANCE,5)
+       local domstring = right("00000000000000000000"..(o.DOMINANCE or 20),5)
        map.dominancemap[lay][domstring] = map.dominancemap[lay][domstring] or {}
        local m =map.dominancemap[lay][domstring]
        m[#m+1]=o
@@ -37,6 +37,48 @@ function kthura.makeclass(map)
      map.draw = kthura.drawmap
      map.remapdominance = kthura.remapdominance(map)
 end
+
+function kthura.remapall(map)
+    kthura.remapdominance(map)
+end
+
+function kthura.Spawn(map,layer,spot,tag,xdata)
+    local x,y
+    assert(map,errortag('kthura.Spawn',{map,layer,spot,tag,xdata},"No Map"))
+    assert(map.MapObjects[layer],errortag('kthura.Spawn',{map,layer,spot,tag,xdata},"Layer not found"))
+    if type(spot)=='table' then
+       x = spot[1] or spot.x or spot.X or 0
+       y = spot[2] or spot.y or spot.Y or 0
+    elseif type(spot)=='string' then
+       local xspot = map.TagMap[layer][spot]
+       assert(xspot,errortag('kthura.Spawn',{map,layer,spot,tag,xdata},"Tried to spawn on an non-existent spot"))
+       x = xspot.COORD.x
+       y = xspot.COORD.y
+    end   
+    local actor = {}
+    local list = map.MapObjects[layer]
+    list[#list+1] = actor
+    actor.KIND = "Actor"
+    actor.COORD = {x=x,y=y}
+    actor.INSERT = {x=0,y=0}
+    actor.ROTATION = 0
+    actor.SIZE = { width = 0, height = 0 } 
+    actor.TAG = tag
+    actor.TEXTURE = ""
+    actor.CURRENTFRAME = 1
+    actor.FRAMESPEED = -1
+    actor.ALPHA = 1
+    actor.VISIBLE = true
+    actor.COLOR = { r = 255, g = 255, b = 255 } 
+    actor.IMPASSIBLE = false
+    actor.FORCEPASSIBLE = false
+    actor.SCALE = { x = 1000, y = 1000 } 
+    actor.BLEND = 0
+    kthura.makeobjectclass(actor)
+    for k,v in pairs(xdata or {}) do actor[k] = v end
+    kthura.remapall(map)
+end
+kthura.spawn=kthura.Spawn
 
 
 
