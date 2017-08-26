@@ -1,7 +1,7 @@
 --[[
   Scenario.lua
   
-  version: 17.08.25
+  version: 17.08.26
   Copyright (C) 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages

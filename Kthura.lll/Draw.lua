@@ -6,10 +6,10 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.08.25
+        Version: 17.08.26
 ]]
 
-mkl.version("Love Lua Libraries (LLL) - Draw.lua","17.08.25")
+mkl.version("Love Lua Libraries (LLL) - Draw.lua","17.08.26")
 mkl.lic    ("Love Lua Libraries (LLL) - Draw.lua","Mozilla Public License 2.0")
 
 
