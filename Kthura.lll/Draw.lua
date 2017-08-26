@@ -33,14 +33,18 @@ local function niets() end
 
 local function animate(o)
    if o.FRAMESPEED==-1 then return end
+   --print(serialize("Animated object",o)) -- Debug line. Since it slows the system down, this must always be on comment when not needed!
+   --print("TIME:"..sval(o.FRAMETIME).."; TICK:"..sval(o.FRAMETIMETICKVALUE).."; ROLL:"..sval(o.FRAMEROLL).."; FRAME:"..sval(o.FRAME).."; FRAMEMAX:"..sval(#o.LoadedTexture.images))
    local t = love.timer.getTime()
    o.FRAMETIME = o.FRAMETIME or t 
-   if math.abs(t-o.FRAMETIME)<.5 then return end
+   o.FRAMETIMETICKVALUE = math.abs(t-o.FRAMETIME)
+   if o.FRAMETIMETICKVALUE<.05 then return end
    o.FRAMETIME = t
    o.FRAMEROLL = (o.FRAMEROLL or o.FRAMESPEED) - 1
    if o.FRAMEROLL<=0 then
-      o.FRAME = o.FRAME + 1
-      if #o.LoadedTexture<o.FRAME then o.FRAME=1 end
+      o.FRAMEROLL=nil
+      o.FRAME = (o.FRAME or 1) + 1
+      if #o.LoadedTexture.images<o.FRAME then o.FRAME=1 end
    end   
 end
 
@@ -80,18 +84,20 @@ local drawclass = {
            ktcolor(self)
            self.X = self.COORD.x
            self.Y = self.COORD.y
-           --[[
+           -- --[[
            if self.SIZE.width==0 or self.SIZE.height==0 then
               DrawImage(self.LoadedTexture,self.X-(camx or 0),self.Y-(camy or 0),self.FRAME,self.ROTATION,self.SCALE.x/1000,self.SCALE.y/1000)
-           else
-           ]]
+           --[[else]] end
+           --]]
+           --[[
               local pw,ph=ImageSizes(self.LoadedTexture)
               for x=0,self.SIZE.width-1 do for y=0,self.SIZE.height-1 do
                  local mdx=x*pw
                  local mdy=y*ph
                  DrawImage(self.LoadedTexture,(mdx+self.X)-(camx or 0),(mdy+self.Y)-(camy or 0),self.FRAME,self.ROTATION,self.SCALE.x/1000,self.SCALE.y/1000)
               end end
-           --end             
+           --end      
+           ]]       
        end,
     },
     Zone = { -- Here everyhting just has to be empty

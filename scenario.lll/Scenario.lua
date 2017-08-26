@@ -29,7 +29,7 @@
 
 -- GALE replacements
 local CSay = print
-local Sys = { Error = error }
+local Sys = { Error = function(A1,A2) error(A1.."\n"..A2) end }
 local function JCR6ListFile(f)
       return mysplit(love.filesystem.read(f:upper()),"\n")
 end      
@@ -42,6 +42,8 @@ local btdata
 local portret = {}
 
 scen.portret = portret
+
+scen.data = btdata
 
 local function RemoveData(file) btdata = btdata or {} btdata[file] = nil end
 scen.RemoveData = RemoveData
@@ -77,30 +79,30 @@ scen.data = btdata
 if merge then ret = btdata[loadas or file] or {} end
 CSay("Loading BoxText Data: "..file)
 for LineNumber,Line in ipairs(crap) do
-    L = Str.Trim(Line)
+    L = trim(Line)
     if L~="" then
        if left(L,1)=="[" and right(L,1=="]") then
           section = L
        else
           -- The select statement below is provided through the pre-processor built in the GALE system.
           -- @SELECT section
-          -- @CASE   "[rem]"
-          -- @CASE   "[tags]"
+          if section=='[rem]' then-- @CASE   "[rem]"
+          elseif section=='[tags]' then -- @CASE   "[tags]"
              ret[L] = {}
-          -- @CASE   "[scenario]"
+          elseif section=='[scenario]' then -- @CASE   "[scenario]"
              Prefix = left(L,1)
              DLine = right(L,len(L)-1)
              -- CSay("ReadLine: "..L.." >> Prefix: "..Prefix) -- Debug line.
-             if (not WorkRec) and Prefix~="@" and Prefix~="-" then Sys.Error("Trying to assign data, while no boxtext record has yet been created","Line,"..LineNumber) end
+             if (not WorkRec) and Prefix~="@" and Prefix~="-" then Sys.Error("Trying to assign data, while no boxtext\nrecord has yet been created","Line,"..LineNumber) end
              if Prefix=="@" then
                 WorkRec = { Lines = {} }
                 table.insert(ret[DLine],WorkRec)                
              else
                 ProcessBLine(WorkRec,Prefix,DLine)   
                 end
-          -- @DEFAULT
+          else -- @DEFAULT
              Sys.Error("Unknown language section: "..section,"Line,"..LineNumber)   
-          -- @ENDSELECT          
+          end -- @ENDSELECT          
           end
        end
     end

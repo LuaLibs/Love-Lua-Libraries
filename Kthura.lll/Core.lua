@@ -38,8 +38,28 @@ function kthura.makeclass(map)
      map.remapdominance = kthura.remapdominance(map)
 end
 
+function kthura.remaptags(map)
+  local tm = map.TagMap
+  -- I want to keep the original pointer, but I do want to make sure the garbage collector doesn't spook up, as that is an issue in Lua.
+  for l,m in pairs(tm) do
+      for t,o in pairs(tm) do m[t]=nil end
+      tm[l]=nil
+  end
+  -- And let's now map it out properly
+  for lay,objects in pairs(map.MapObjects) do
+      tm[lay]={}
+      for i,o in pairs(objects) do       
+          if o.TAG and o.TAG~="" then          
+             assert(not tm[lay][o.TAG],"Duplicate tag in layer: "..lay.."; Tag: "..o.TAG)
+             tm[lay][o.TAG]=o
+          end
+      end    
+  end
+end
+
 function kthura.remapall(map)
     kthura.remapdominance(map)
+    kthura.remaptags(map)
 end
 
 function kthura.Spawn(map,layer,spot,tag,xdata)
