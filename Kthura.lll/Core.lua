@@ -97,6 +97,7 @@ function kthura.Spawn(map,layer,spot,tag,xdata)
     kthura.makeobjectclass(actor)
     for k,v in pairs(xdata or {}) do actor[k] = v end
     kthura.remapall(map)
+    return actor
 end
 kthura.spawn=kthura.Spawn
 
