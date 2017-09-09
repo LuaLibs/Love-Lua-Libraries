@@ -131,6 +131,13 @@ local drawclass = {
 }
 
 
+function kthura.liobj(self) -- Load Image Object
+      local c = drawclass[self.KIND]
+     assert(self.KIND,errortag("kthura.drawobject",{self,camx,camy}," Object has no kind"))
+     local c = drawclass[self.KIND]
+     assert(c,errortag("kthura.drawobject",{self,camx,camy}," kind '"..self.KIND.."' not supported in this version of the Kthura Drawing Engine"))
+     self.LoadedTexture = (c.LoadTexture or genloadtexture)(self)
+end
 
 function kthura.drawobject(self,camx,camy)
      assert(self.KIND,errortag("kthura.drawobject",{self,camx,camy}," Object has no kind"))

@@ -17,6 +17,38 @@ mkl.lic    ("Love Lua Libraries (LLL) - Core.lua","Mozilla Public License 2.0")
 local kthura={} -- This makes it easier to use my outliner, otherwise it won't outline and these functions are too important for me. 
 -- *fi
 
+
+local BM={}
+
+function BM.Nada(d,g) return {} end
+function BM.Obstacle(d,g) 
+    local ret = {}
+    kthura.liobj(d)
+    local img = d.LoadedTexture[1]
+    local w=img:getWidth()
+    local h=img:getHeight()
+    local gy
+    for ix=d.COORD.x-(w/2),d.COORD.x+(w/2) do
+        local gx = math.floor(ix/g.x)
+        gy = gy or math.floor(d.COORD.y/g.y)
+        ret[#ret+1]= gx..","..gy
+    end
+    return ret
+end
+function BM.Zone(d,g)
+    local ret
+    local temp = {}
+    for ix=d.COORD.x,d.COORD.x+d.SIZE.width do for iy=d.COORD.y,d.COORD.Y+d.SIZE.height do
+        local gx = math.floor(ix/g.x)
+        local gy = math.floor(ix/g.y)
+        local s  = gx..","..gy
+        if not temp[s] then ret[#ret+1]=s end
+        temp[s]=true
+    end end
+    return ret
+end    
+
+
 function kthura.remapdominance(map)
    map.dominancemap = {}
    for lay,objl in pairs(map.MapObjects) do for o in each(objl) do
@@ -28,14 +60,38 @@ function kthura.remapdominance(map)
    end end
 end
 
+function kthura.map_block(map,layer,x,y)
+   if not map.blockmap then return nil end
+   local g = mysplit(map.Grid[layer],"x")
+   local gx = tonumber(g[1]) or 1
+   local gy = tonumber(g[2]) or 1
+   local cx = math.floor(x/gx)
+   local cy = math.floor(y/gy)
+   return map.blockmap[cx..","..cy]
+end   
+
+function kthura.buildblockmap(map)
+  local p = {{b=true, f='IMPASSIBLE'},{b=false, f="FORCEPASSIBLE"}}  
+  map.blockmap = {}  
+  for pi in each(p) do for lay,objl in pairs(map.MapObjects) do for o in each(objl) do
+      if o[pi.f] then
+         local serie = (BM[o.KIND] or BM.Nada)()
+         for c in each(serie) do map.blockmap[c]=p.b end
+      end
+  end end end
+end
+
 function kthura.makeobjectclass(kthuraobject)
      kthuraobject.draw = kthura.drawobject
+     kthuraobject.BM = BM[kthuraobject.KIND] or BM.Nada
 end
 
 function kthura.makeclass(map)
      for lay,objl in pairs(map.MapObjects) do for o in each(objl) do kthura.makeobjectclass(o) end end
      map.draw = kthura.drawmap
      map.remapdominance = kthura.remapdominance(map)
+     map.buildblockmap = kthura.buildblockmap(map)
+     map.block = kthura.map_block
 end
 
 function kthura.remaptags(map)
@@ -60,6 +116,7 @@ end
 function kthura.remapall(map)
     kthura.remapdominance(map)
     kthura.remaptags(map)
+    kthura.buildblockmap(map)
 end
 
 function kthura.Spawn(map,layer,spot,tag,xdata)
