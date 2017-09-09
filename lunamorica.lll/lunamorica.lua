@@ -280,7 +280,7 @@ function lunamorica.update(gadget,parent)
      gadget.getcaption
                     = gcaption                    
      gadget.setfont = lv_font
-     gadget.hover   = gadget.lf_hover or stdhover               
+     gadget.hover   = gadget.hover or gadget.lf_hover or stdhover               
      ;(gadget.lf_init or LNOTHING)(gadget,config)
      --[[ Debug
      for k,v in spairs(gadget) do
