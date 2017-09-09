@@ -25,6 +25,10 @@ function BM.Obstacle(d,g)
     local ret = {}
     kthura.liobj(d)
     local img = d.LoadedTexture[1]
+    if not img then
+       print("WARNING! Obstacle texture "..sval(d.TEXTURE).." was not loaded, so it won't affect the blockmap")
+       return {}
+    end   
     local w=img:getWidth()
     local h=img:getHeight()
     local gy
@@ -36,9 +40,9 @@ function BM.Obstacle(d,g)
     return ret
 end
 function BM.Zone(d,g)
-    local ret
+    local ret = {}
     local temp = {}
-    for ix=d.COORD.x,d.COORD.x+d.SIZE.width do for iy=d.COORD.y,d.COORD.Y+d.SIZE.height do
+    for ix=d.COORD.x,d.COORD.x+d.SIZE.width do for iy=d.COORD.y,d.COORD.y+d.SIZE.height do
         local gx = math.floor(ix/g.x)
         local gy = math.floor(ix/g.y)
         local s  = gx..","..gy
@@ -73,9 +77,9 @@ end
 function kthura.buildblockmap(map)
   local p = {{b=true, f='IMPASSIBLE'},{b=false, f="FORCEPASSIBLE"}}  
   map.blockmap = {}  
-  for pi in each(p) do for lay,objl in pairs(map.MapObjects) do for o in each(objl) do
+  for pi in each(p) do for lay,objl in pairs(map.MapObjects) do local g = mysplit(map.Grid[lay],"x") local gx = tonumber(g[1]) or 1 local gy = tonumber(g[2]) or 1 local grd={x=gx,y=gy} or 1 for o in each(objl) do
       if o[pi.f] then
-         local serie = (BM[o.KIND] or BM.Nada)()
+         local serie = (BM[o.KIND] or BM.Nada)(o,grd)
          for c in each(serie) do map.blockmap[c]=p.b end
       end
   end end end
