@@ -187,7 +187,7 @@ local function lv_font(self,dontset)
 end    
 
 local function stdhover(self,x,y)
-     return x>=self.ax and y>=self.ay and x<=self.ax+(self.w or 0) and y<=ay.ay+(self.h or 0)
+     return x>=self.ax and y>=self.ay and x<=self.ax+(self.w or 0) and y<=self.ay+(self.h or 0)
 end     
 
 -- This will tell Lunamorica how to deal with certain events triggered by gadgets.
