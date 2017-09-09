@@ -51,6 +51,11 @@ local pic = {
         end   
      end,
      
+     hover = function(g,x,y)
+        assert(g.image,"Picture gadget without data!")
+        return x>g.ax and y>g.ay and x<g.ax+g.image:getWidth() and y<g.ay+g.image:getHeigth()
+     end,
+     
      draw = function (g)
         local x = g.ax
         local y = g.ay 
