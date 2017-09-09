@@ -186,6 +186,10 @@ local function lv_font(self,dontset)
     return loadedfonts[f]
 end    
 
+local function stdhover(self,x,y)
+     return x>=self.ax and y>=self.ay and x<=self.ax+(self.w or 0) and y<=ay.ay+(self.h or 0)
+end     
+
 -- This will tell Lunamorica how to deal with certain events triggered by gadgets.
 -- This table may NOT be called directly. Lunamorica uses it to attach the proper functions to their proper locations.
 local gadgets = { Screen = {} }
@@ -275,7 +279,8 @@ function lunamorica.update(gadget,parent)
      gadget.color   = gadgetcolor
      gadget.getcaption
                     = gcaption                    
-     gadget.setfont = lv_font               
+     gadget.setfont = lv_font
+     gadget.hover   = gadget.lf_hover or stdhover               
      ;(gadget.lf_init or LNOTHING)(gadget,config)
      --[[ Debug
      for k,v in spairs(gadget) do
