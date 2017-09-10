@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.09.09
+        Version: 17.09.10
 ]]
 
 -- *import mkl_version
@@ -15,7 +15,7 @@
 -- *if ignore
 local mkl = {}
 -- *fi
-mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.09.09")
+mkl.version("Love Lua Libraries (LLL) - lunamorica.lua","17.09.10")
 mkl.lic    ("Love Lua Libraries (LLL) - lunamorica.lua","Mozilla Public License 2.0")
 
 
