@@ -88,6 +88,7 @@ end Rect=DrawRect
 
 Color = love.graphics.setColor
 SetColor = Color
+color = Color
 
 function white() Color(255,255,255) end
 function black() Color(  0,  0,  0) end
