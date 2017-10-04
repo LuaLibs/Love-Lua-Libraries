@@ -46,7 +46,17 @@ local t = {
 
     month = function() return tonumber(os.date("%m")) end,
     day   = function() return tonumber(os.date("%d")) end,
-    year  = function() return tonumber(os.date("%Y")) end
+    year  = function() return tonumber(os.date("%Y")) end,
+    
+                     --        1           2      3      4      5     6       7      8        9            10        11         12
+    MNames = { English = {'January','February','March','April','May','June','July',   'August'  ,'September','October','November','December'},
+               Dutch   = {'januari','februari','maart','april','mei','juni','juli',   'augustus','september','oktober','november','december'}, -- Dutch does not use capitals, unless a month name is at the START of a sentence
+               French  = {'janvier','fevrier', 'mars', 'avril','may','juin','julliet','auot'    ,'septembre','octobre','novembre','decembre'}  -- accent marks NOT supported for safety reasons.               
+               },
+    WNames = { English = {'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'},
+               Dutch   = {'zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'},
+               French  = {'dimanche','lundi','mardi','mercredi','jeudi','vendredi','sammedi'},
+    }           
 
 }
 
