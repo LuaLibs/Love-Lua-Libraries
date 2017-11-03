@@ -66,8 +66,9 @@ function LoadImage(file)
        if not ret.images[1] then return end
      end   
   else 
-     ret.image={file} 
-  end            
+     ret.images={file} 
+  end
+  ret.image=ret.images[1]            
   return ret
 end
 
