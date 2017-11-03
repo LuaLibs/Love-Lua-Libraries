@@ -32,7 +32,8 @@ keypressed = {}
 scankeypressed = {}
 
 function love.draw()
-assert ( chain.current,"I cannot draw without a valid chain! ")
+local cn = chain.currentname or "<<NIL>>"
+assert ( chain.current,"I cannot draw without a valid chain! ("..cn..")")
 assert ( chain.current.draw, "Hey chain "..valstr(chain.currentname).." has no draw data! ")
 ;(chain.x.priordraw or chain.nothing)()
 chain.current.draw()
