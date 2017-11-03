@@ -22,7 +22,7 @@
      If you use this library, please use your own logo in stead! ]]
 
 -- *import chain
--- *import qgfx
+-- *import qgfx2
 -- *import audio
 
 -- *undef dev_screen
@@ -35,6 +35,8 @@ mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
 
 local r ={}
 local mylogo = LoadImage("$$mydir$$/LOGO.PNG")-- love.graphics.newImage("$$mydir$$/LOGO.PNG")
+assert(mylogo,"$$mydir$$/LOGO.PNG was not setup at all somehow")
+assert(mylogo.image,"$$mydir$$/LOGO.PNG was not loaded somehow")
 
 local retdata
 local afteraction = {}
