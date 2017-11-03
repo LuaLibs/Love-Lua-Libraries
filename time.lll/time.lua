@@ -1,8 +1,8 @@
 --[[
   time.lua
   Time Library
-  version: 16.04.22
-  Copyright (C) 2016 Jeroen P. Broks
+  version: 17.11.03
+  Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -20,7 +20,7 @@
 
 -- *import quickmath
 
-mkl.version("Love Lua Libraries (LLL) - time.lua","16.04.22")
+mkl.version("Love Lua Libraries (LLL) - time.lua","17.11.03")
 mkl.lic    ("Love Lua Libraries (LLL) - time.lua","ZLib License")
 
 local t = {
