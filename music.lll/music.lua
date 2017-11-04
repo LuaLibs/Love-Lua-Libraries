@@ -1,8 +1,8 @@
 --[[
   music.lua
   music.lll/music.lua
-  version: 16.04.17
-  Copyright (C) 2016 Jeroen P. Broks
+  version: 17.11.04
+  Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -19,7 +19,7 @@
 ]]
 -- *import mkl_version
 
-mkl.version("Love Lua Libraries (LLL) - music.lua","16.04.17")
+mkl.version("Love Lua Libraries (LLL) - music.lua","17.11.04")
 mkl.lic    ("Love Lua Libraries (LLL) - music.lua","ZLib License")
 
 local mozart = {}
@@ -32,6 +32,10 @@ function mozart.play(file,mode)
 mozart.config = mozart.config or {music=true}
 if mozart.source and (not mozart.config.music) then mozart.file=nil; StopSound(mozart.source) return end -- If music is set not to play, it won't play!
 if mozart.source and mozart.file==file then return end -- If the same music is already playing, no need to play it again, right?
+if mozart.optional and (not love.filesystem.isFile(file)) then 
+   print("File: "..file.." does not exist, but that doesn't matter, as the engine was set to have this as an optional thing anyway")
+   return
+end   
 mozart.source = LoadSound(file,true,mode or 'stream')
 PlaySound(mozart.source)
 end
