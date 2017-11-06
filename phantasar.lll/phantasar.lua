@@ -109,7 +109,12 @@ local croll = r.roll[r.process]
                r.retdata[croll[2]] = LoadSound(croll[3],croll[4] or false,croll[5] or 'static')       
               end   ,
       font  = function()
-               r.retdata[croll[2]] = love.graphics.newFont( croll[3] )
+               if love.filesystem.isFile(croll[3].."_size.lua") then
+                  size = j_love_import(croll[3].."_size.lua")
+                  r.retdata[croll[2]] = love.graphics.newFont( croll[3], size )
+               else   
+                  r.retdata[croll[2]] = love.graphics.newFont( croll[3] )
+               end   
               end                                  
       
    })[croll[1]] or function() error("Unknown asset type: "..croll[1]) end)()
