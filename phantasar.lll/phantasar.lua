@@ -19,7 +19,8 @@
 ]]
 
 --[[ Please note that the Phantasar Productions logo is property of Jeroen Petrus Broks.
-     If you use this library, please use your own logo in stead! ]]
+     If you use this library, please use your own logo in stead!
+     Also note that the zlib license does NOT apply for the name Phantasar which is also property of Jeroen Petrus Broks ]]
 
 -- *import chain
 -- *import qgfx2
@@ -102,11 +103,14 @@ r.barsize = math.floor(r.rawprog*(ww-102))
 local croll = r.roll[r.process]
 ;(({
       image = function()
-              r.retdata[croll[2]] = LoadImage(croll[3])
+               r.retdata[croll[2]] = LoadImage(croll[3])
               end,
       audio = function()
-              r.retdata[croll[2]] = LoadSound(croll[3],croll[4] or false,croll[5] or 'static')       
-              end                             
+               r.retdata[croll[2]] = LoadSound(croll[3],croll[4] or false,croll[5] or 'static')       
+              end   ,
+      font  = function()
+               r.retdata[croll[2]] = love.graphics.newFont( croll[3] )
+              end                                  
       
    })[croll[1]] or function() error("Unknown asset type: "..croll[1]) end)()
    print ( "Loaded "..croll[1]..": "..croll[3].." to "..croll[2])
