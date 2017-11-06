@@ -39,9 +39,9 @@ local pic = {
            if     g.hot=="ur" then g.ox=g.iw   g.oy=0 
            elseif g.hot=="ul" then g.ox=0      g.oy=0
            elseif g.hot=='uc' then g.ox=g.iw/2 g.oy=0
-           elseif g.hot=="lr" then g.ox=g.iw   g.oy=g.ih
-           elseif g.hot=="ul" then g.ox=0      g.oy=g.ih
-           elseif g.hot=='uc' then g.ox=g.iw/2 g.oy=g.ih
+           elseif g.hot=="dr" then g.ox=g.iw   g.oy=g.ih
+           elseif g.hot=="dl" then g.ox=0      g.oy=g.ih
+           elseif g.hot=='dc' then g.ox=g.iw/2 g.oy=g.ih
            elseif g.hot=="cr" then g.ox=g.iw   g.oy=g.ih/2
            elseif g.hot=="cl" then g.ox=0      g.oy=g.ih/2
            elseif g.hot=='cc' then g.ox=g.iw/2 g.oy=g.ih/2
