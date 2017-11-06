@@ -38,6 +38,7 @@ if mozart.optional and (not love.filesystem.isFile(file)) then
 end   
 mozart.source = LoadSound(file,true,mode or 'stream')
 PlaySound(mozart.source)
+mozart.file=file
 end
 
 function mozart.stop()

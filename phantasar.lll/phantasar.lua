@@ -139,6 +139,7 @@ print("Must add dir "..dir.." to "..dtype)
 local list = love.filesystem.getDirectoryItems( dir )
 local tag,st
 for file in each(list) do
+    assetlist[dtype] = assetlist[dtype] or {}
     print("adding to list:"..file)
     st = mysplit(file,".")
     tag = lower(st[1])
