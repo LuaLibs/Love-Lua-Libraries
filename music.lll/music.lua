@@ -1,7 +1,7 @@
 --[[
   music.lua
   music.lll/music.lua
-  version: 17.11.04
+  version: 17.11.07
   Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,7 +19,7 @@
 ]]
 -- *import mkl_version
 
-mkl.version("Love Lua Libraries (LLL) - music.lua","17.11.04")
+mkl.version("Love Lua Libraries (LLL) - music.lua","17.11.07")
 mkl.lic    ("Love Lua Libraries (LLL) - music.lua","ZLib License")
 
 local mozart = {}
