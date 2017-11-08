@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.07.30
+        Version: 17.11.08
 ]]
 -- *import xmath
 
@@ -98,7 +98,7 @@ local knopje = {
          --g:color()
          for drw in each(g.drwlst) do
              love.graphics.setColor(g[drw.cpf.."R"],g[drw.cpf.."G"],g[drw.cpf.."B"])
-             love.graphics.draw(drw.drw,drw.x+g.ax,drw.y+g.ay)
+             love.graphics.draw(drw.drw,drw.x+g.ax+(g.imgx or 0),drw.y+g.ay+(g.imgy or 0))
          end  
     end,
     
