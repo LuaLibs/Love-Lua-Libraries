@@ -1,7 +1,7 @@
 --[[
   qgfx2.lua
   
-  version: 17.11.03
+  version: 17.11.08
   Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,7 +25,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx2.lua","17.11.03")
+mkl.version("Love Lua Libraries (LLL) - qgfx2.lua","17.11.08")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx2.lua","ZLib License")
 
 
@@ -147,7 +147,23 @@ local i = (({ ['string'] = function() return assets[img] end,
               ['table']  = function() return img end })[type(img)])()
 i.ox = x or i.ox
 i.oy = y or i.oy
-end             
+end       
+
+function QHot(img,qtag)
+    local iw,ih = ImageSizes(img)
+    local hx,hy
+    if     qtag=="lt" then hx= 0   hy= 0  
+    elseif qtag=='rt' then hx=iw   hy= 0
+    elseif qtag=='ct' then hx=iw/2 hy= 0
+    elseif qtag=='lc' then hx= 0   hy=ih/2
+    elseif qtag=='cc' or
+           qtag=='c'  then hx=iw/2 hy=ih/2
+    elseif qtag=='rc' then hx=iw   hy=ih/2
+    elseif qtag=='lb' then hx= 0   hy=ih
+    elseif qtag=='cb' then hx=iw/2 hy=ih
+    elseif qtag=='rb' then hx=iw   hy=ih end
+    Hot(img,hx,hy)
+end    
 
 
 function HotCenter(img)
