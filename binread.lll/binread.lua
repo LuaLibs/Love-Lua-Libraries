@@ -60,7 +60,7 @@ end
 
 return function(file)
     local ret = {}
-    ret.data = love.filesystem(file)
+    ret.data = love.filesystem.read(file)
     ret.pos  = 0
     ret.size = #ret.data
     ret.getbyte = gbyte
