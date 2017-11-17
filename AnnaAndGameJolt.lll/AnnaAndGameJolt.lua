@@ -9,7 +9,7 @@ local annadomain = 'http://utbbs.tbbs.nl' -- Makes it easy. If I ever move Anna,
 local gjdomain   = 'http://gamejolt.com/api/game/v1/'
 
 local networkstuff = {
-         ['Game Jolt'] = { domain=gjdomain },
+         ['Game Jolt'] = { domain=gjdomain, gj=j_love_import('$$mydir$$/GAMEJOLT_API.LUA') },
          Anna =          { domain=annadomain }
       }
 
