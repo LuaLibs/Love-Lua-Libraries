@@ -1,3 +1,8 @@
+# NOTE
+This is only a copy of the original code!
+I've just imported this since the license allows this.
+
+
 Gamejolt API for Lua/Love
 ===
 
