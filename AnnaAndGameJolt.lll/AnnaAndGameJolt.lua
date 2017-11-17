@@ -1,6 +1,8 @@
 -- *import md5
 -- *import stringmapfile
-http = require("socket.http")
+-- *localimport gjapi
+
+local http = require("socket.http")
 
 
 AGJError = ""
@@ -9,7 +11,7 @@ local annadomain = 'http://utbbs.tbbs.nl' -- Makes it easy. If I ever move Anna,
 local gjdomain   = 'http://gamejolt.com/api/game/v1/'
 
 local networkstuff = {
-         ['Game Jolt'] = { domain=gjdomain, gj=j_love_import('$$mydir$$/GAMEJOLT_API.LUA') },
+         ['Game Jolt'] = { domain=gjdomain, gj=gjapi },
          Anna =          { domain=annadomain }
       }
 

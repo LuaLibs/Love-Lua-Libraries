@@ -50,9 +50,14 @@ Data Store 		|									  |
 
 --]]
 
-local md5 = require("MD5")
-local json = require("JSON")
-local http = require("socket.http")
+
+--print("GJ_API:Loading $$mydir$$/md5.lua")  local md5 = j_love_import("$$mydir$$/md5.lua")   --require("MD5")
+--print("GJ_API:Loading $$mydir$$/json.lua") local json = j_love_import("$$mydir$$/json.lua") --require("JSON")
+--print("GJ_API:loading socket.http")        local http = require("socket.http")
+
+-- *localimport md5
+-- *localimport json
+local http = require('socket.http')
 
 local _ = {
   _VERSION     = "gamejolt_api.lua 1.0",
