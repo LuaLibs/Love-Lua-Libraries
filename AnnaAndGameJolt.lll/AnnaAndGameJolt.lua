@@ -79,3 +79,8 @@ function Anna_Request(data)
     end   
     return false,getdata.REASON or "--" 
 end
+
+function GAHD_get(file)
+    local ret = {data=readstringmap(file)}
+    print ( serialize('GAHD',ret) ) -- debug line
+end    

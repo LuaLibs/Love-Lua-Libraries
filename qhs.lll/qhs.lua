@@ -20,7 +20,7 @@
 -- Strict -- As this is a translation from blitzmax, this line has no value in this translation!
 
 --- *import mkl_version
-mkl.ersion("Tricky's Units - QHS.bmx","17.11.17")
+mkl.version("Love Lua Libraries (LLL) - qhs.lua","17.11.17")
 mkl.lic    ("Love Lua Libraries (LLL) - qhs.lua","ZLib License")
 
 

@@ -17,7 +17,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
--- * import mkl_version
+-- *import mkl_version
 
 mkl.version("Love Lua Libraries (LLL) - binread.lua","17.11.17")
 mkl.lic    ("Love Lua Libraries (LLL) - binread.lua","ZLib License")
