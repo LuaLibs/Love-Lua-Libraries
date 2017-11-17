@@ -37,7 +37,8 @@ local knopje = {
             g.t_text.drw = love.graphics.newText(g:setfont(true),g.acaption)
             g.t_text.w   = g.t_text.drw:getWidth()
             g.t_text.h   = g.t_text.drw:getHeight()
-            g.drwlst[#g.drwlst+1] = g.t_text            
+            g.drwlst[#g.drwlst+1] = g.t_text
+            print("Worked out caption: "..g.acaption)            
          end
          if g.image then
             g.t_img.drw  = love.graphics.newImage(g.image:upper())

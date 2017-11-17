@@ -178,12 +178,12 @@ local function lv_font(self,dontset)
     local s = self.fontsize or 12
     local t = f..":"..s
     if (self.font or "default"):lower()=="default" then
-       loadedfonts[f] = loadedfonts[f] or love.graphics.newFont(s)
+       loadedfonts[t] = loadedfonts[t] or love.graphics.newFont(s)
     else   
-       loadedfonts[f] = loadedfonts[f] or love.graphics.newFont(f:upper(),s)
+       loadedfonts[t] = loadedfonts[t] or love.graphics.newFont(f:upper(),s)
     end   
-    if not dontset then love.graphics.setFont(loadedfonts[f]) end
-    return loadedfonts[f]
+    if not dontset then love.graphics.setFont(loadedfonts[t]) end
+    return loadedfonts[t]
 end    
 
 local function stdhover(self,x,y)
