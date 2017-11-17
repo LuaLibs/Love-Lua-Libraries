@@ -1,7 +1,7 @@
 --[[
   qgfx2.lua
   
-  version: 17.11.08
+  version: 17.11.17
   Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,7 +25,7 @@ local shit = {}
 
 assets = assets or {}
 
-mkl.version("Love Lua Libraries (LLL) - qgfx2.lua","17.11.08")
+mkl.version("Love Lua Libraries (LLL) - qgfx2.lua","17.11.17")
 mkl.lic    ("Love Lua Libraries (LLL) - qgfx2.lua","ZLib License")
 
 
