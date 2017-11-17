@@ -1,4 +1,5 @@
 -- *import md5
+-- *import stringmapfiles
 http = require("socket.http")
 
 
