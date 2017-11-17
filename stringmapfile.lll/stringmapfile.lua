@@ -1,5 +1,5 @@
 --[[
-  qhs.lua
+  stringmapfile.lua
   
   version: 17.11.17
   Copyright (C) 2017 Jeroen P. Broks
@@ -17,28 +17,34 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
--- Strict -- As this is a translation from blitzmax, this line has no value in this translation!
+-- *import binread
+-- *import qhs 
 
---- *import mkl_version
-mkl.version("Love Lua Libraries (LLL) - qhs.lua","17.11.17")
-mkl.lic    ("Love Lua Libraries (LLL) - qhs.lua","ZLib License")
-
-
-
-function QHD(A,afactor)
-  local factor = afactor or 1
-  local ret = ""
-  local h,t
-  for i=1 , #A do
-    h = (i-1) * factor -- As BlitzMax works from 0 and Lua from 1, the -1 is needed to maintain compatibility
-    t = string.byte(mid(A,i,1)) + h
-    while t>255 do t=t-256 end
-    while t<  0 do t=t+256 end
-    ret=ret..string.char(t)
-  end
-  return ret
-end 
-
-function QUH(a,factor)
-  return QHD(a,(factor or 1)*-1)
+function readstringmap(file)
+    local bt=binread(file)
+    local ret = {}
+    local tag,factor,k,v
+    repeat
+        if bt:eof() then return ret end -- please note closure is not required!
+        local tag = bt:getbyte()
+        if tag==255 then return ret end
+        if tag==2 then 
+           factor=bt:getbyte()
+           k = QUH(bt:getstring())
+           v = QUH(bt:getstring())
+           ret[k]=v
+        elseif tag==1 then
+           k = bt:getstring()
+           v = bt:getstring()
+           ret[k]=v
+        else
+           error("Unknown tag in readstringmap.\nFile: "..file.."\bTag:  "..tag)
+        end
+    until false    
 end
+
+mkl.version("Love Lua Libraries (LLL) - stringmapfile.lua","17.11.17")
+mkl.lic    ("Love Lua Libraries (LLL) - stringmapfile.lua","ZLib License")
+
+
+return true

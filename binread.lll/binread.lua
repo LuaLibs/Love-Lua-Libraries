@@ -25,7 +25,7 @@ mkl.lic    ("Love Lua Libraries (LLL) - binread.lua","ZLib License")
 
 local function gbyte(d)
      d.pos = d.pos + 1
-     assert(d.pos<#d.data,"Reading past EOF")
+     assert(d.pos<=#d.data,"Reading past EOF")
      return string.byte(mid(d.data,d.pos,1))
 end     
 
@@ -39,8 +39,8 @@ local function ghighnum(d,l)
     return ret
 end
 
-local function gint(d)  return d:ghighnum(4) end
-local function glong(d) return d:ghighnum(8) end 
+local function gint(d)  return d:gethighnum(4) end
+local function glong(d) return d:gethighnum(8) end 
 
 local function gstring(d,l)
     local ln = l or d:getint()
@@ -60,7 +60,7 @@ end
 
 return function(file)
     local ret = {}
-    ret.data = love.filesystem.read(file)
+    ret.data = love.filesystem.read(upper(file)); assert(ret.data,"binread('"..file.."'): file not read")
     ret.pos  = 0
     ret.size = #ret.data
     ret.getbyte = gbyte

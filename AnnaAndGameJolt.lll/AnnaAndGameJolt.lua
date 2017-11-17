@@ -6,6 +6,12 @@ http = require("socket.http")
 AGJError = ""
 
 local annadomain = 'http://utbbs.tbbs.nl' -- Makes it easy. If I ever move Anna, all I gotta do is change this line.
+local gjdomain   = 'http://gamejolt.com/api/game/v1/'
+
+local networkstuff = {
+         ['Game Jolt'] = { domain=gjdomain },
+         Anna =          { domain=annadomain }
+      }
 
 function AnnaCreate(username)
   AGJError = ""
