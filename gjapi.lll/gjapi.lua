@@ -89,7 +89,7 @@ function _:request(q)
 	q = self.API_URL .. q .. "&format=json&game_id=" .. self.GAME_ID
 	q = self:_add_signature(q)
 	q = string.gsub(q, "%s+", "%%20")
-	print(q)
+	--print(q)
 	local data, status = http.request(q)
 	return data, status
 end
@@ -147,8 +147,8 @@ function _:trophies_fetch(achieved, trophy_id)
 	return json:decode(self:request(q)).response
 end
 
-function _:trophies_addAcheived(trophy_id)
-	return json:decode(self:request("trophies/?&trophy_id=" .. trophy_id .. self.user.idstring)).response
+function _:trophies_addAchieved(trophy_id)
+	return json:decode(self:request("trophies/add-achieved/?&trophy_id=" .. trophy_id .. self.user.idstring)).response
 end
 
 ------------------------------------------ SCORES --------------------------------------------

@@ -17,8 +17,8 @@ local annadomain = 'http://utbbs.tbbs.nl' -- Makes it easy. If I ever move Anna,
 local gjdomain   = 'http://gamejolt.com/api/game/v1/'
 
 local networkstuff = {
-         ['Game Jolt'] = { domain=gjdomain, gj=gjapi, tab='gamejolt' },
-         Anna =          { domain=annadomain, tab='anna' }
+         ['Game Jolt'] = { domain=gjdomain, gj=gjapi, tab='gamejolt', cd="GAMEJOLT" },
+         Anna =          { domain=annadomain, tab='anna', cd="ANNA" }
       }
       
 local ngj = networkstuff['Game Jolt']
@@ -99,6 +99,40 @@ function Anna_Request(data)
     return false,getdata.REASON or "--" 
 end
 
+-- award achievement
+function networkstuff.Anna.award(gdata,ach)
+    local udata = gdata.annalogin
+    local login = udata --[nan.tab]
+    local query = {HC='Game',A='Auth',Game=gdata.data['ANNA.ID'],GameSecu=gdata.data['ANNA.KEY'],Version=mkl.newestversion(),id=login.id,secu=login.secu}
+    local awc   = gdata.data['AWARD.ANNA.'..upper(ach)]
+    if not awc then print("WARNING! No Anna code for award: "..ach) return false,'No Anna code for award: '..ach end
+    query.AwardNo = awc
+    local s,r = Anna_Request(query)
+    local reason = "OK"
+    if not s then reason = r end
+    if not s then print("WARNING! Anna achievement failed: "..reason) end
+    return s,reason    
+end
+
+networkstuff['Game Jolt'].award=function(gdata,ach) -- function before definition is not liked by the parser.
+   local awc   = gdata.data['AWARD.GAMEJOLT.'..upper(ach)]
+   if not awc then print("WARNING! No Game Jolt code for award: "..ach) return false,'No Game Jolt code for award: '..ach end
+   ngj.gj:trophies_addAchieved(awc)
+   return true,"Ok!"
+end
+
+local function _award(gdata,ach)
+    for netname,netdo in pairs(gdata.usenet) do
+        if netdo then
+           print("Awarding: "..ach.." on "..netname) 
+           networkstuff[netname].award(gdata,ach)
+        else
+           print("Skipping: "..ach.." on "..netname)    
+        end
+    end
+    
+end
+
 function GAHD_get(file)
     local ret = {data=readstringmap(file)}
     print ( serialize('GAHD',ret) ) -- debug line
@@ -120,6 +154,7 @@ end
 function nan.init(gdata,udata)
      local login = udata[nan.tab]
      local query = {HC='Game',A='Auth',Game=gdata.data['ANNA.ID'],GameSecu=gdata.data['ANNA.KEY'],Version=mkl.newestversion(),id=login.id,secu=login.secu}
+     gdata.annalogin = {id=login.id,secu=login.secu}
      local s,r = Anna_Request(query)
      local reason = "OK"
      if not s then reason = r end
@@ -131,6 +166,8 @@ local lastattempts = {}
 function NET_Login(gdata,udata)
      local success = true
      local results = {} 
+     gdata.usenet = {}
+     gdata.award=_award
      for netname,net in spairs(networkstuff) do
        if udata[net.tab] then
          local lr = {}
@@ -140,6 +177,8 @@ function NET_Login(gdata,udata)
          print("= Succes: "..sval(lr.success))
          print("= Reason: "..sval(lr.reason))
          lastattempts[netname]=results --lr.success
+         gdata.netin = lastattempts
+         gdata.usenet[netname] = lr.success 
          success = success and lr.success
        end
      end
