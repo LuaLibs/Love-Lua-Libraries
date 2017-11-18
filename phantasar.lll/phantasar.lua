@@ -1,7 +1,7 @@
 --[[
   phantasar.lua
   Phantasar Load Screen
-  version: 17.11.07
+  version: 17.11.18
   Copyright (C) 2016, 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -30,7 +30,7 @@
 -- *undef dev_shownum
 -- *undef dev_after
 
-mkl.version("Love Lua Libraries (LLL) - phantasar.lua","17.11.07")
+mkl.version("Love Lua Libraries (LLL) - phantasar.lua","17.11.18")
 mkl.lic    ("Love Lua Libraries (LLL) - phantasar.lua","ZLib License")
 
 
@@ -143,6 +143,9 @@ for file in each(list) do
     print("adding to list:"..file)
     st = mysplit(file,".")
     tag = lower(st[1])
+    if #st>2 then
+       for i=2,#st-1 do tag = tag .. "."..st[i] end
+    end
     tag = replace(tag," ","_")
     assetlist[dtype][(prefix or "")..tag] = dir.."/"..file
     end
