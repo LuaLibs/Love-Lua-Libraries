@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 17.11.17
+        Version: 17.11.19
 ]]
 -- *import xmath
 
@@ -65,7 +65,7 @@ local knopje = {
          g.topB    = g.BB * 2   if g.topB>255 then g.topB=255 end   
          if (g.topR + g.topG + g.topB) - (g.BR + g.BG + g.BB) < 50 then g.topR = 255 g.topG=255 g.topB=255 end 
          g.SR , g.SG, g.SB = 0,0,0 
-         g.IR , g.IG, g.IB = 255,255,255
+         g.IR , g.IG, g.IB = g.IR or 255,g.IG or 255,g.IB or 255
     end,
     
     draw = function(g)
